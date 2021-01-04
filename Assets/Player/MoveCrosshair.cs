@@ -55,9 +55,13 @@ public class MoveCrosshair : MonoBehaviour
         switch (context.control.device)
         {
             case Gamepad _:
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 _currentInput = value;
                 break;
             case Mouse _:
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = false;
                 _currentInput =Vector2.zero;
                 transform.position = value;
                 break;
