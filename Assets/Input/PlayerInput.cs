@@ -22,7 +22,7 @@ namespace Input
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""32cfb6a9-3009-425d-8f82-2dfa9698efaa"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -30,7 +30,7 @@ namespace Input
                 },
                 {
                     ""name"": ""Aim"",
-                    ""type"": ""Value"",
+                    ""type"": ""PassThrough"",
                     ""id"": ""9abef9b2-3340-47b6-b7af-a104b6d41be7"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
