@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using Unity.Burst;
 using Unity.Collections;
 using Unity.Jobs;
@@ -50,7 +51,8 @@ public class Weapon : ScriptableObject
     [SerializeField] private LayerMask collidesWith;
     [SerializeField] private float accuracy;
     [SerializeField] private SpawnZone zone;
-
+    [SerializeField] private bool manualFire;
+    
     private List<Bullet> _bullets;
     private List<Transform> _bulletTransforms;
     private static Collider[] _results = new Collider[32];
@@ -71,6 +73,7 @@ public class Weapon : ScriptableObject
         _job = new BulletMoveJob();
         _bullets = new List<Bullet>();
         _bulletTransforms = new List<Transform>();
+        _currentCooldown = fireRate;
     }
 
     public void Update()
@@ -157,10 +160,13 @@ public class Weapon : ScriptableObject
     {
         if (_pool == null)
             _pool = pool;
-        
-        if (_currentCooldown < fireRate) return false;
-        _currentCooldown = 0;
-        
+
+        if (!manualFire)
+        {
+            if (_currentCooldown < fireRate) return false;
+            _currentCooldown = 0;
+        }
+
         SpawnBullets(position);
         return true;
     }
@@ -190,7 +196,8 @@ public class Weapon : ScriptableObject
             
             // point the bullet in the right direction
             bullet.forward = new Vector3(dir.x, dir.y);
-            bullet.transform.localScale = Vector3.one * bulletSize.EvaluateMinMaxCurve();
+            bullet.transform.localScale = Vector3.zero;
+            bullet.transform.DOScale(Vector3.one * bulletSize.EvaluateMinMaxCurve(), 0.33f).SetEase(Ease.OutQuint);
 
             if (zone.SpawnDir != SpawnDir.Spherised)
             {

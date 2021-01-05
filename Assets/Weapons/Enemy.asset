@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc932693ed0a470d9cf39b1c3168afb, type: 3}
-  m_Name: PlayerWeapon
+  m_Name: Enemy
   m_EditorClassIdentifier: 
-  fireRate: 0.05
+  fireRate: 6
   bulletSpeed:
     m_Mode: 0
     m_CurveMultiplier: 1
@@ -64,8 +64,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 60
-    m_ConstantMax: 60
+    m_ConstantMin: 0
+    m_ConstantMax: 0
   bulletLifetime:
     m_Mode: 3
     m_CurveMultiplier: 0
@@ -81,10 +81,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 1.25
-    m_ConstantMax: 1.5
+    m_ConstantMin: 15
+    m_ConstantMax: 20
   bulletSize:
-    m_Mode: 3
+    m_Mode: 0
     m_CurveMultiplier: 0
     m_CurveMin:
       serializedVersion: 2
@@ -98,12 +98,12 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 0.1
-    m_ConstantMax: 0.4
+    m_ConstantMin: 0
+    m_ConstantMax: 1
   damage: 1
   collidesWith:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 64
   accuracy: 0
   zone:
     numToSpawn: 1
@@ -114,9 +114,9 @@ MonoBehaviour:
     height: 0
     surfaceOnly: 1
     evenDistribution: 1
-    numSides: 3
-    numPerSide: 5
-    radius: 1.25
+    numSides: 5
+    numPerSide: 80
+    radius: 18
     arc: 360
     composite: []
-  manualFire: 1
+  manualFire: 0

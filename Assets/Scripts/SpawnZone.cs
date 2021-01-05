@@ -223,9 +223,9 @@ namespace Weapons.Spawning
             Gizmos.color = color;
             SpawnPoly(transform, (point, dir) =>
             {
-                Gizmos.DrawSphere(new Vector3(point.x, 0, point.y), 0.25f);
+                Gizmos.DrawSphere(transform.position + new Vector3(point.x, 0, point.y), 0.25f);
                 if (color.a > 0.5f)
-                    Gizmos.DrawRay(new Vector3(point.x, 0, point.y), new Vector3(dir.x, 0, dir.y));
+                    Gizmos.DrawRay(transform.position + new Vector3(point.x, 0, point.y), new Vector3(dir.x, 0, dir.y));
             });
         }
         
