@@ -81,8 +81,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 2.5
-    m_ConstantMax: 3
+    m_ConstantMin: 1.25
+    m_ConstantMax: 1.5
   bulletSize:
     m_Mode: 3
     m_CurveMultiplier: 0

@@ -12,6 +12,8 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
     
     private List<T> _pool;
     private List<GameObject> _poolGameObjects;
+
+    private List<int> _indicesToRemove;
     
     public event Action<T> OnObjectFound;
     public event Action Initialised;
@@ -40,17 +42,28 @@ public class ObjectPool<T> : MonoBehaviour where T : Component
         return (foundObject, idx);
     }
 
+    private void LateUpdate()
+    {
+        for (int i = _indicesToRemove.Count - 1; i >= 0; i--)
+        {
+            var obj = _pool[i];
+            _pool.RemoveAt(i);
+            _poolGameObjects.RemoveAt(i);
+            
+            _pool.Add(obj);
+            _poolGameObjects.Add(obj.gameObject);
+        }
+        _indicesToRemove.Clear();
+    }
+
     public void ReturnObject(T obj, int idx)
     {
-        _pool.RemoveAt(idx);
-        _pool.Add(obj);
-        
-        _poolGameObjects.RemoveAt(idx);
-        _poolGameObjects.Add(obj.gameObject);
+        _indicesToRemove.Add(idx);
     }
     
     public IEnumerator Start()
     {
+        _indicesToRemove = new List<int>();
         _pool = new List<T>(numObjects);
         _poolGameObjects = new List<GameObject>(numObjects);
         for (int i = 0; i < numObjects; ++i)
