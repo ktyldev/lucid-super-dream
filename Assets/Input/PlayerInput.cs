@@ -35,6 +35,14 @@ namespace Input
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""064a84b0-0247-44f4-9c74-247a779f9216"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -125,6 +133,28 @@ namespace Input
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c462e9d4-e1d8-42a0-bbd8-d673f9d7af53"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Default"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eca1947f-ce32-44a7-9bcc-2dadb6612fb7"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Default"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -141,6 +171,7 @@ namespace Input
             m_Default = asset.FindActionMap("Default", throwIfNotFound: true);
             m_Default_Move = m_Default.FindAction("Move", throwIfNotFound: true);
             m_Default_Aim = m_Default.FindAction("Aim", throwIfNotFound: true);
+            m_Default_Shoot = m_Default.FindAction("Shoot", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -192,12 +223,14 @@ namespace Input
         private IDefaultActions m_DefaultActionsCallbackInterface;
         private readonly InputAction m_Default_Move;
         private readonly InputAction m_Default_Aim;
+        private readonly InputAction m_Default_Shoot;
         public struct DefaultActions
         {
             private @PlayerInput m_Wrapper;
             public DefaultActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Default_Move;
             public InputAction @Aim => m_Wrapper.m_Default_Aim;
+            public InputAction @Shoot => m_Wrapper.m_Default_Shoot;
             public InputActionMap Get() { return m_Wrapper.m_Default; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -213,6 +246,9 @@ namespace Input
                     @Aim.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnAim;
                     @Aim.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnAim;
                     @Aim.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnAim;
+                    @Shoot.started -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShoot;
+                    @Shoot.performed -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShoot;
+                    @Shoot.canceled -= m_Wrapper.m_DefaultActionsCallbackInterface.OnShoot;
                 }
                 m_Wrapper.m_DefaultActionsCallbackInterface = instance;
                 if (instance != null)
@@ -223,6 +259,9 @@ namespace Input
                     @Aim.started += instance.OnAim;
                     @Aim.performed += instance.OnAim;
                     @Aim.canceled += instance.OnAim;
+                    @Shoot.started += instance.OnShoot;
+                    @Shoot.performed += instance.OnShoot;
+                    @Shoot.canceled += instance.OnShoot;
                 }
             }
         }
@@ -240,6 +279,7 @@ namespace Input
         {
             void OnMove(InputAction.CallbackContext context);
             void OnAim(InputAction.CallbackContext context);
+            void OnShoot(InputAction.CallbackContext context);
         }
     }
 }
