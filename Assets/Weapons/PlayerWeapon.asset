@@ -120,3 +120,4 @@ MonoBehaviour:
     arc: 360
     composite: []
   manualFire: 1
+  behaviour: {fileID: 11400000, guid: 20de5bc0e86bc4037a85f6c46356a227, type: 2}

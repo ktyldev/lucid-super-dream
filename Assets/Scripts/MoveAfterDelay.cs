@@ -7,10 +7,36 @@ using Random = UnityEngine.Random;
 
 public class MoveAfterDelay : MonoBehaviour
 {
-    [SerializeField] private float delayMin;
-    [SerializeField] private float delayMax;
+    [SerializeField] private int beatsBeforeMove = 16;
+    [SerializeField] private float scaleAmount = 1.5f;
+    [SerializeField] private int numBeatsAfterScale = 4;
+    
+    private static AudioBeatManager _audio;
+    
+    private void Awake()
+    {
+        if (_audio == null)
+            _audio = FindObjectOfType<AudioBeatManager>();
+    }
+
     private void OnEnable()
     {
-        transform.DOMoveZ(-15, 2.0f).SetEase(Ease.InQuint).SetDelay(Random.Range(delayMin, delayMax));
+        _audio.OnBeatEvent += AudioOnBeat;
+    }
+
+    private void OnDisable()
+    {
+        _audio.OnBeatEvent -= AudioOnBeat;
+    }
+
+    private void AudioOnBeat(int beat)
+    {
+        if (beat % beatsBeforeMove != 0) return;
+        
+        DOTween.Sequence()
+            .Append(transform.DOScale(Vector3.one * scaleAmount, _audio.TimeBetweenBeats*16).SetEase(Ease.InQuint))
+            .Append(transform.DOScale(Vector3.one, _audio.TimeBetweenBeats*16).SetEase(Ease.OutQuint))
+            .Append(transform.DOMoveZ(-30, 1.0f).SetEase(Ease.InOutQuint).SetDelay(_audio.TimeBetweenBeats * numBeatsAfterScale))
+            .Play();
     }
 }

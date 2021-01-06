@@ -52,6 +52,8 @@ public class Weapon : ScriptableObject
     [SerializeField] private float accuracy;
     [SerializeField] private SpawnZone zone;
     [SerializeField] private bool manualFire;
+    [SerializeField] private BaseBulletBehaviour behaviour;
+    [SerializeField] private bool useDeltaTime;
     
     private List<Bullet> _bullets;
     private List<Transform> _bulletTransforms;
@@ -73,7 +75,7 @@ public class Weapon : ScriptableObject
         _job = new BulletMoveJob();
         _bullets = new List<Bullet>();
         _bulletTransforms = new List<Transform>();
-        _currentCooldown = fireRate;
+        _currentCooldown = fireRate * Time.deltaTime;
     }
 
     public void Update()
@@ -163,7 +165,7 @@ public class Weapon : ScriptableObject
 
         if (!manualFire)
         {
-            if (_currentCooldown < fireRate) return false;
+            if (_currentCooldown > fireRate * (useDeltaTime ? Time.deltaTime : 1)) return false;
             _currentCooldown = 0;
         }
 
@@ -196,9 +198,8 @@ public class Weapon : ScriptableObject
             
             // point the bullet in the right direction
             bullet.forward = new Vector3(dir.x, dir.y);
-            bullet.transform.localScale = Vector3.zero;
-            bullet.transform.DOScale(Vector3.one * bulletSize.EvaluateMinMaxCurve(), 0.33f).SetEase(Ease.OutQuint);
-
+            bullet.transform.localScale = Vector3.one * bulletSize.EvaluateMinMaxCurve();
+            behaviour.DoBehaviour(bullet, bulletSize.EvaluateMinMaxCurve(), bullet.position);
             if (zone.SpawnDir != SpawnDir.Spherised)
             {
                 var y = bullet.eulerAngles.y;
@@ -219,8 +220,6 @@ public class Weapon : ScriptableObject
                 Idx = idx
             });
         });
-        
-        
     }
 
     /// <summary>

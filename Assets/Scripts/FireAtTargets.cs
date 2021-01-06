@@ -14,8 +14,7 @@ public class FireAtTargets : MonoBehaviour
     
     [SerializeField] private UnityEvent OnFire;
     [SerializeField] private Vector3Event OnBulletCollide;
-
-    [SerializeField] private float delayBetweenTargets;
+    [SerializeField] private int numTargets = 4;
     
     private void Awake()
     {
@@ -48,13 +47,14 @@ public class FireAtTargets : MonoBehaviour
     private IEnumerator FireIE(List<Transform> targets)
     {
         var currentTargets = new List<Transform>(targets);
-        foreach (var target in currentTargets)
+        for (var i = 0; i < currentTargets.Count; i++)
         {
-            bulletPos.LookAt(target);
+            bulletPos.LookAt(currentTargets[i]);
             if (weapon.Fire(bulletPool, bulletPos))
                 OnFire?.Invoke();
-            
-            yield return delayBetweenTargets;
+
+            if (i % numTargets == 0)
+                yield return null;
         }
     }
     

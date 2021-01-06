@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 233269787904781725}
   - component: {fileID: 2766037370157449026}
   - component: {fileID: 2122656558574222561}
-  - component: {fileID: 5433566675603670693}
+  - component: {fileID: 499203000553078885}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Untagged
@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b2c8b098025f4e2f997759b5c00fef7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5433566675603670693
+--- !u!114 &499203000553078885
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,5 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331122d8907f44ed9b0f8f2337d176b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayMin: 3.4
-  delayMax: 3.6
+  beatsBeforeMove: 160
+  scaleAmount: 1.5
+  numBeatsAfterScale: 0

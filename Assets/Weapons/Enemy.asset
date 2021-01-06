@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc932693ed0a470d9cf39b1c3168afb, type: 3}
   m_Name: Enemy
   m_EditorClassIdentifier: 
-  fireRate: 6
+  fireRate: 3
   bulletSpeed:
     m_Mode: 0
     m_CurveMultiplier: 1
@@ -108,15 +108,17 @@ MonoBehaviour:
   zone:
     numToSpawn: 1
     offset: {x: 0, y: 0}
-    spawnType: 2
+    spawnType: 0
     spawnDir: 0
     width: 0
     height: 0
-    surfaceOnly: 1
-    evenDistribution: 1
+    surfaceOnly: 0
+    evenDistribution: 0
     numSides: 5
     numPerSide: 80
-    radius: 18
+    radius: 15
     arc: 360
     composite: []
-  manualFire: 0
+  manualFire: 1
+  behaviour: {fileID: 11400000, guid: bb1cb2a77c68c42d4900953d18b23a49, type: 2}
+  useDeltaTime: 0

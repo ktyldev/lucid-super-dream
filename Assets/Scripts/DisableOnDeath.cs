@@ -6,14 +6,20 @@ using Weapons.Scripts;
 public class DisableOnDeath : MonoBehaviour
 {
     private EntityHealth _health;
+    private Renderer _renderer;
+    private Color _color;
+    
     private void Awake()
     {
         _health = GetComponent<EntityHealth>();
+        _renderer = GetComponentInChildren<Renderer>();
+        _color = _renderer.material.color;
     }
 
     private void OnEnable()
     {
         _health.Die += Die;
+        _renderer.material.color = _color;
     }
 
     private void OnDisable()
@@ -25,7 +31,9 @@ public class DisableOnDeath : MonoBehaviour
     {
         var oldName = gameObject.name;
         gameObject.name = "disabled";
-        transform.DOScale(Vector3.zero, 0.33f).SetEase(Ease.InBack).OnComplete(() =>
+        _renderer.material.DOColor(Color.white, 0.1f);
+        _renderer.material.DOFade(0, 0.2f).SetDelay(0.3f);
+        transform.DOScale(Vector3.one * 1.5f, 0.5f).SetEase(Ease.OutQuint).OnComplete(() =>
         {
             gameObject.name = oldName;
             gameObject.SetActive(false);

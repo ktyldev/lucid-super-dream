@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,44 +9,49 @@ public class TargetLockOn : MonoBehaviour
 
     [SerializeField] private int maxTargets;
 
-    [SerializeField] private float targetTime;
-
     [SerializeField] private float targetSize;
 
-    [SerializeField] private float delay;
-    
     [SerializeField] private LayerMask collideWith;
     
     [SerializeField] private TransformEvent OnTargetFound;
     [SerializeField] private TransformListEvent OnTargetLock;
+
+    [SerializeField] private int shootOnBeat;
+    [SerializeField] private int noTargetLengthInBeats;
+    [SerializeField] private float beatOffset;
     
-    private float _targetCountdown;
     private List<Transform> _targets;
 
     private bool _canTarget = true;
     
     private RaycastHit[] _colliders = new RaycastHit[128];
 
+    private AudioBeatManager _audio;
+
     private void Awake()
     {
         _targets = new List<Transform>(maxTargets);
+        _audio = FindObjectOfType<AudioBeatManager>();
     }
+    
+    public void OnBeat(int beat)
+    {
+        if ((beat + beatOffset) % shootOnBeat == 0)
+        {
+            OnTargetLock?.Invoke(_targets);
+            _targets.Clear();
+            _canTarget = false;
+        }
+        
+        if ((beat + beatOffset + noTargetLengthInBeats) % shootOnBeat == 0)
+            _canTarget = true;
+    }
+
 
     private void FixedUpdate()
     {
         if (!_canTarget) return;
-        
-        _targetCountdown -= Time.deltaTime;
 
-        if (_targetCountdown <= 0)
-        {
-            _targetCountdown = targetTime;
-            OnTargetLock?.Invoke(_targets);
-            _targets.Clear();
-            _canTarget = false;
-            WaitUtils.Wait(delay, true, () => _canTarget = true);
-        }
-        
         var ray = cam.ScreenPointToRay(cursor.position + Vector3.forward);
         var numHits = Physics.SphereCastNonAlloc(ray, targetSize, _colliders, 50, collideWith, QueryTriggerInteraction.Collide);
 
