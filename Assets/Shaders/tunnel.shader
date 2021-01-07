@@ -13,6 +13,8 @@ Shader "custom/tunnel"
         _StarMap("Star Map", 2D) = "black"
         _FractalMap("Fractal Map", 2D) = "black"
         
+        _ShakeStrength("Shake Strength", Float) = 0.01
+        
         _OverallPower("Overall Power", Float) = 1.0
     }
 
@@ -47,6 +49,8 @@ Shader "custom/tunnel"
             float4 _NebulaColor1;
             float4 _NebulaColor2;
             float4 _FractalColor;
+
+            float _ShakeStrength;
 
             float _OverallPower;
 
@@ -90,6 +94,13 @@ Shader "custom/tunnel"
                 float2 res = _ScreenParams;
                 float2 p = -1.0+2.0*IN.positionHCS.xy/res.xy;
                 p.x *= res.x/res.y;
+
+                float2 cameraShake;
+                float shake = _Time*50;
+                cameraShake.x = cos(shake*12.3341)+sin(shake*19.231057);
+                cameraShake.y = cos(shake*17.12311)+sin(shake*14.2315165);
+                cameraShake*=_ShakeStrength;
+                p += cameraShake;
 
                 // shared tunnel vars
                 float r = length(p);
@@ -137,26 +148,38 @@ Shader "custom/tunnel"
                 star *= r * r * 2.0;
                 
                 // sample fractal
-                float fractalScale = 4.0;
+                float fractalScale = 6.0;
                 float fractalRotateSpeed = 20.0;
                 float fractalPower = 1.0;
                 float fractal_inner = 0.2;
                 
                 // fractal uv
-                float2 fuv = p / fractalScale + float2(0.5,0.5);
-                fuv = rotateUV(fuv,_Time*fractalRotateSpeed);
-                half4 fractal = SAMPLE_TEXTURE2D(_FractalMap, sampler_FractalMap, fuv);
-                fractal *= _FractalColor;
-                fractal *= max(0, r-fractal_inner);
-                fractal *= fractalPower;
+                float2 fuv1 = p / fractalScale + float2(0.5,0.5);
+                fuv1 = rotateUV(fuv1,_Time*fractalRotateSpeed);
+                half4 fractal1 = SAMPLE_TEXTURE2D(_FractalMap, sampler_FractalMap, fuv1);
+                fractal1 *= _FractalColor;
+                fractal1 *= max(0, r-fractal_inner);
+                fractal1 *= fractalPower*0.5;
+
+                // fractal 2
+                float2 fuv2 = rotateUV(fuv1,-_Time*fractalRotateSpeed*3.561);
+                fuv2.x=1.0-fuv2.x;
+                half4 fractal2 = SAMPLE_TEXTURE2D(_FractalMap, sampler_FractalMap, fuv2);
+                fractal2 *= _FractalColor * sin(_Time*3);
+                fractal2 *= max(0, r-fractal_inner);
+                fractal2 *= fractalPower*0.5;
+
+                half4 fractal = max(fractal1,fractal2);
                 
                 half4 color = half4(0,0,0,0);
                 color += nebula1;
                 color += nebula2;
                 color += fractal;
+                // color += fractal1;
+                // color += fractal2;
                 color += star;
 
-                saturate(color);
+                color = saturate(color);
                 color *= _OverallPower;
                 
                 return color;

@@ -26,3 +26,12 @@ MonoBehaviour:
     multiplier: -1000
     channel: 0
     sample: 173
+  - name: _ShakeStrength
+    multiplier: 2
+    channel: 0
+    sample: 355
+  _shipAnimations:
+  - name: _VertexScale
+    multiplier: 3703.2
+    channel: 1
+    sample: 874

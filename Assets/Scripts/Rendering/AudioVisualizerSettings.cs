@@ -2,6 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 using FMOD;
 using UnityEngine;
+using INITFLAGS = FMOD.Studio.INITFLAGS;
 
 [CreateAssetMenu(menuName = "Audio Visualizer Settings")]
 public class AudioVisualizerSettings : ScriptableObject
@@ -21,25 +22,26 @@ public class AudioVisualizerSettings : ScriptableObject
     
     [SerializeField] private ShaderPropertyAnimation[] _fractalAnimations;
     [SerializeField] private ShaderPropertyAnimation[] _tunnelAnimations;
+    [SerializeField] private ShaderPropertyAnimation[] _shipAnimations;
 
-    public void Initialise(Material fractal, Material tunnel)
+    public void Initialise(Material fractal, Material tunnel, Material ship)
     {
-        for (int i = 0; i < _fractalAnimations.Length; i++)
-        {
-            var anim = _fractalAnimations[i];
-            anim.Initial = fractal.GetFloat(anim.name);
-            _fractalAnimations[i] = anim;
-        }
+        InitialiseAnimations(_fractalAnimations, fractal);
+        InitialiseAnimations(_tunnelAnimations, tunnel);
+        InitialiseAnimations(_shipAnimations, ship);
+    }
 
-        for (int i = 0; i < _tunnelAnimations.Length; i++)
+    private void InitialiseAnimations(ShaderPropertyAnimation[] animations, Material material)
+    {
+        for (int i = 0; i < animations.Length; i++)
         {
-            var anim = _tunnelAnimations[i];
-            anim.Initial = tunnel.GetFloat(anim.name);
-            _tunnelAnimations[i] = anim;
+            var anim = animations[i];
+            anim.Initial = material.GetFloat(anim.name);
+            animations[i] = anim;
         }
     }
 
-    public void Update(DSP fft, Renderer fractal, Renderer tunnel)
+    public void Update(DSP fft, Renderer fractal, Renderer tunnel, Renderer ship)
     {
         fft.getParameterData((int) FMOD.DSP_FFT.SPECTRUMDATA, out var unmanagedData, out var length);
         var fftData = (FMOD.DSP_PARAMETER_FFT) Marshal.PtrToStructure(unmanagedData, typeof(FMOD.DSP_PARAMETER_FFT));
@@ -62,6 +64,18 @@ public class AudioVisualizerSettings : ScriptableObject
             var a = spectrum[anim.channel][anim.sample];
             
             tunnel.material.SetFloat(anim.name, anim.Initial + anim.multiplier * a);
+        }
+
+        UpdateAnimations(spectrum, _shipAnimations, ship);
+    }
+
+    private void UpdateAnimations(float[][] spectrum, ShaderPropertyAnimation[] animations, Renderer renderer)
+    {
+        for (int i = 0; i < animations.Length; i++)
+        {
+            var anim = animations[i];
+            var a = spectrum[anim.channel][anim.sample];
+            renderer.material.SetFloat(anim.name, anim.Initial + anim.multiplier * a);
         }
     }
 }

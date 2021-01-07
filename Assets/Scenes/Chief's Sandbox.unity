@@ -493,13 +493,53 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2477419886909461543, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: _ship
+      value: 
+      objectReference: {fileID: 1639649353}
+    - target: {fileID: 2477419886909461543, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: _settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 65b0561f3154c9f438c3a1e1b443d03d, type: 2}
+    - target: {fileID: 2477419886909461543, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: _fractalAnimations.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477419886909461543, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: _fractalAnimations.Array.data[0].name
+      value: _Fractality
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477419886909461543, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: _fractalAnimations.Array.data[0].sample
+      value: 241
+      objectReference: {fileID: 0}
+    - target: {fileID: 2477419886909461543, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: _fractalAnimations.Array.data[0].multiplier
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397488660173986648, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926092, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2268.2031
+      value: 2085.424
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1039.2305
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.773619
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 846.83606
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660859550700, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_Name
@@ -549,6 +589,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3397488661354499723, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
 --- !u!1 &1173812004
@@ -560,8 +604,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1173812008}
-  - component: {fileID: 1173812007}
-  - component: {fileID: 1173812006}
   - component: {fileID: 1173812005}
   - component: {fileID: 1173812009}
   - component: {fileID: 1173812010}
@@ -588,55 +630,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1173812006
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173812004}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 91f85826a80e340dc930093507b30791, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1173812007
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1173812004}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &1173812008
 Transform:
   m_ObjectHideFlags: 0
@@ -1009,7 +1002,7 @@ GameObject:
   - component: {fileID: 1639649353}
   - component: {fileID: 1639649352}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: Ship
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1022,13 +1015,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639649350}
-  m_LocalRotation: {x: 0, y: 0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: 0.45}
-  m_LocalScale: {x: 0.5, y: 1, z: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 0.6}
   m_Children: []
   m_Father: {fileID: 1173812008}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1639649352
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1061,7 +1054,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 91f85826a80e340dc930093507b30791, type: 2}
+  - {fileID: 2100000, guid: 0cef45e7a8ed5434c82d2291106a3fff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1090,7 +1083,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1639649350}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -5495902117074765545, guid: c2fbec7900214e24ea3cad9629da11c2, type: 3}
 --- !u!1 &1942400133
 GameObject:
   m_ObjectHideFlags: 0
