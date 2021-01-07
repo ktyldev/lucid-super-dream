@@ -86,5 +86,3 @@ unityProject.vrmanifest
 # FMOD
 fmod_editor.log
 /[Aa]ssets/Plugins/FMOD/Resources/FMODStudioCache.asset
-
-Assets/Plugins/FMOD/Cache/Editor/FMODStudioCache.asset
