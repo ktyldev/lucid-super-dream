@@ -2,8 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class AudioBeatManager : MonoBehaviour
+public class AudioBeatManager : MonoBehaviour, IAudioBeatManager
 {
     [SerializeField] private float bpm;
     public float TimeBetweenBeats => _bps * Time.deltaTime;
@@ -11,8 +12,11 @@ public class AudioBeatManager : MonoBehaviour
     private float _bps;
     private int _currentBeat = 0;
     private float _timer;
-    
-    public IntEvent OnBeat;
+
+    [SerializeField] [FormerlySerializedAs("OnBeat")] 
+    private IntEvent _onBeat;
+
+    public IntEvent OnBeat => _onBeat;
     public event Action<int> OnBeatEvent;
     private void Awake()
     {
@@ -32,4 +36,10 @@ public class AudioBeatManager : MonoBehaviour
             OnBeatEvent?.Invoke(_currentBeat);
         }
     }
+}
+
+public interface IAudioBeatManager
+{
+    public IntEvent OnBeat { get; }
+    public event Action<int> OnBeatEvent;
 }
