@@ -243,9 +243,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8399031f014bee928b07d26fe8ee4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseOnBeat: 160
-  pauseLengthInBeats: 72
-  beatOffset: 16
+  pauseOnBeat: 16
+  pauseLengthInBeats: 8
+  beatOffset: 2
 --- !u!20 &502054319 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3397488660173986648, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
@@ -527,7 +527,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2085.424
+      value: 1847.5209
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.y
@@ -774,9 +774,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  shootOnBeat: 160
-  noTargetLengthInBeats: 72
-  beatOffset: 16
+  shootOnBeat: 16
+  noTargetLengthInBeats: 8
+  beatOffset: 2
 --- !u!1 &1215971662
 GameObject:
   m_ObjectHideFlags: 0

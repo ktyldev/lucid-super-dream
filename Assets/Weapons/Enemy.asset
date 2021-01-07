@@ -106,7 +106,7 @@ MonoBehaviour:
     m_Bits: 64
   accuracy: 0
   zone:
-    numToSpawn: 1
+    numToSpawn: 10
     offset: {x: 0, y: 0}
     spawnType: 0
     spawnDir: 0

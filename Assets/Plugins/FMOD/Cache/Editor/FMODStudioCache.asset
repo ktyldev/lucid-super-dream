@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMOD/Desktop/Master.bank
   Name: Master
-  lastModified: 637455820886389038
+  lastModified: 637456045920000000
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -122,7 +122,7 @@ MonoBehaviour:
   - {fileID: -4840949124066270359}
   StringsBanks:
   - {fileID: 2930724805879487167}
-  stringsBankWriteTime: 637455820886398947
+  stringsBankWriteTime: 637456045920000000
   cacheVersion: 4
 --- !u!114 &2930724805879487167
 MonoBehaviour:
@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Path: Assets/FMOD/Desktop/Master.strings.bank
   Name: Master.strings
-  lastModified: 637455820886398947
+  lastModified: 637456045920000000
   LoadResult: 0
   FileSizes:
   - Name: 

@@ -135,6 +135,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331122d8907f44ed9b0f8f2337d176b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beatsBeforeMove: 160
+  beatsBeforeMove: 16
   scaleAmount: 1.5
   numBeatsAfterScale: 0

@@ -32,8 +32,8 @@ public class DisableOnDeath : MonoBehaviour
         var oldName = gameObject.name;
         gameObject.name = "disabled";
         _renderer.material.DOColor(Color.white, 0.1f);
-        _renderer.material.DOFade(0, 0.2f).SetDelay(0.3f);
-        transform.DOScale(Vector3.one * 1.5f, 0.5f).SetEase(Ease.OutQuint).OnComplete(() =>
+        _renderer.material.DOFade(0, 0.1f).SetDelay(0.2f);
+        transform.DOScale(Vector3.one * 1.5f, 0.3f).SetEase(Ease.OutQuint).OnComplete(() =>
         {
             gameObject.name = oldName;
             gameObject.SetActive(false);
