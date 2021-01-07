@@ -12,5 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a918b83cb0f52b445bf4975f41eaf321, type: 3}
   m_Name: Audio Visualiser Settings
   m_EditorClassIdentifier: 
-  _fractalAnimations: []
-  _tunnelAnimations: []
+  _fractalAnimations:
+  - name: _Fractality
+    multiplier: 43
+    channel: 0
+    sample: 525
+  _tunnelAnimations:
+  - name: _OverallPower
+    multiplier: -1000
+    channel: 0
+    sample: 173
+  - name: _OverallPower
+    multiplier: -1000
+    channel: 0
+    sample: 173
