@@ -88,3 +88,4 @@ fmod_editor.log
 /[Aa]ssets/Plugins/FMOD/Resources/FMODStudioCache.asset
 .DS_Store
 Assets/Plugins/FMOD/Cache
+Assets/Plugins/FMOD/Cache.meta
