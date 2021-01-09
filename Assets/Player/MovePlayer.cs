@@ -10,6 +10,7 @@ public class MovePlayer : MonoBehaviour
     [SerializeField] private SerialFloat speed;
     [SerializeField] private RectOffset extents;
     [SerializeField] private float lerpAmount = 0.95f;
+    [SerializeField] private SerialFloat horizontalInput;
     
     private PlayerInput _input;
     
@@ -51,6 +52,8 @@ public class MovePlayer : MonoBehaviour
             Mathf.Clamp(_transform.localPosition.x, extents.left, extents.right),
             _yPos,
             _zPos);
+        
+        horizontalInput.Value = _currentInput.x;
     }
 
     private void DoMove(InputAction.CallbackContext context)
