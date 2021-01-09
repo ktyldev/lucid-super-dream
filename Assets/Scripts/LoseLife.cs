@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Ktyl.Util;
 using UnityEngine;
 using Weapons.Scripts;
 
@@ -9,6 +10,8 @@ public class LoseLife : MonoBehaviour
 {
     [SerializeField] private Renderer[] healthMarkers;
     [SerializeField] private Renderer polygon;
+
+    [SerializeField] private CameraShake _cameraShake;
     
     private EntityHealth _health;
     
@@ -31,6 +34,8 @@ public class LoseLife : MonoBehaviour
             sequence.Append(polygon.material.DOFloat(1,"_FlashAmount", 0.2f).SetUpdate(true));
             sequence.Append(polygon.material.DOFloat(0,"_FlashAmount", 0.2f).SetUpdate(true));
         }
+
+        _cameraShake.Shake();
 
         sequence.Play().OnComplete(() =>
         {

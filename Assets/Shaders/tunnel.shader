@@ -27,7 +27,7 @@ Shader "custom/tunnel"
         _StarMap("Star Map", 2D) = "black"
         _FractalMap("Fractal Map", 2D) = "black"
         
-        _ShakeStrength("Shake Strength", Float) = 0.01
+//        _ShakeStrength("Shake Strength", Float) = 0.01
         
         _Intensity("Intensity", Float) = 1.0
     }
@@ -79,7 +79,7 @@ Shader "custom/tunnel"
             float _StarsWeight;
             
             float _Intensity;
-            float _ShakeStrength;
+            float _CameraShake = 0.0;
 
             TEXTURE2D(_NebulaMap);
             SAMPLER(sampler_NebulaMap);
@@ -202,8 +202,8 @@ Shader "custom/tunnel"
                 float shake = _Time*50;
                 cameraShake.x = cos(shake*12.3341)+sin(shake*19.231057);
                 cameraShake.y = cos(shake*17.12311)+sin(shake*14.2315165);
-                cameraShake*=_ShakeStrength;
-                // p += cameraShake;
+                cameraShake*=_CameraShake;
+                p += cameraShake;
 
                 // shared tunnel vars
                 float r = length(p);

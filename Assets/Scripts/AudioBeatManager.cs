@@ -43,6 +43,8 @@ public class AudioBeatManager : MonoBehaviour, IAudioBeatManager
     
     private void Awake()
     {
+        DOTween.Init();
+        
         _secPerBeat = 60f / bpm;
         RuntimeManager.CoreSystem.getMasterChannelGroup(out _channelGroup);
         RuntimeManager.CoreSystem.getSoftwareFormat(out _sampleRate, out _, out _);
