@@ -35,6 +35,7 @@ public class Weapon : ScriptableObject
     private struct Bullet
     {
         public Vector3 Direction;
+        public Vector3 PrevPos;
         public float Speed;
         public float Lifetime;
         public bool IsAlive;
@@ -53,7 +54,6 @@ public class Weapon : ScriptableObject
     [SerializeField] private SpawnZone zone;
     [SerializeField] private bool manualFire;
     [SerializeField] private BaseBulletBehaviour behaviour;
-    [SerializeField] private bool useDeltaTime;
     
     private List<Bullet> _bullets;
     private List<Transform> _bulletTransforms;
@@ -75,12 +75,19 @@ public class Weapon : ScriptableObject
         _job = new BulletMoveJob();
         _bullets = new List<Bullet>();
         _bulletTransforms = new List<Transform>();
-        _currentCooldown = fireRate * Time.deltaTime;
+        _currentCooldown = fireRate;
     }
 
     public void Update()
-    {   
+    {
         _currentCooldown += Time.deltaTime;
+
+        for (int i = 0; i < _bulletTransforms.Count; i++)
+        {
+            _currentBullet = _bullets[i];
+            _currentBullet.PrevPos = _bulletTransforms[i].position;
+            _bullets[i] = _currentBullet;
+        }
         
         _job.DeltaTime = Time.deltaTime;
         _job.Bullets = _bullets.ToNativeArray(Allocator.Persistent);
@@ -101,9 +108,11 @@ public class Weapon : ScriptableObject
             _currentBullet.Lifetime -= Time.deltaTime;
             if (_currentBullet.Lifetime <= 0)
                 _currentBullet.IsAlive = false;
+
+            
             _bullets[i] = _currentBullet;
             
-            if (_bullets[i].IsAlive) continue;
+            if (_bullets[i].IsAlive && _bulletTransforms[i].gameObject.activeSelf) continue;
             
             _bulletTransforms[i].gameObject.SetActive(false);
             _pool.ReturnObject(_bulletTransforms[i], _bullets[i].Idx);
@@ -124,7 +133,7 @@ public class Weapon : ScriptableObject
             if (!_currentTransform.gameObject.activeSelf || !_currentBullet.IsAlive) continue;
 
             // if it has hit something
-            if (CheckCollision(_currentTransform, _currentTransform.localScale.x, out var numHits))
+            if (CheckCollision(_currentTransform, _currentBullet.PrevPos, _currentTransform.localScale.x, out var numHits))
             {
                 // send the event
                 BulletCollision?.Invoke(_currentTransform.position);
@@ -138,6 +147,10 @@ public class Weapon : ScriptableObject
                 
                 // deactivate the bullet
                 _currentBullet.IsAlive = false;
+                _currentTransform.gameObject.SetActive(false);
+                _pool.ReturnObject(_currentTransform, _currentBullet.Idx);
+                _bullets.RemoveAt(i);
+                _bulletTransforms.RemoveAt(i);
             }
             
             // apply the changes we made
@@ -145,7 +158,7 @@ public class Weapon : ScriptableObject
         }
     }
 
-    private bool CheckCollision(Transform instance, float size, out int numHits)
+    private bool CheckCollision(Transform instance, Vector3 prevPos, float size, out int numHits)
     {
         numHits = 0;
         
@@ -153,7 +166,7 @@ public class Weapon : ScriptableObject
         if (!instance.gameObject.activeSelf) return false;
         
         // use the non allocating version so we don't have to allocate memory for every bullet
-        numHits = Physics.OverlapSphereNonAlloc(instance.position, size/2f, _results, collidesWith, QueryTriggerInteraction.Collide);
+        numHits = Physics.OverlapCapsuleNonAlloc(prevPos, instance.position, size/2f, _results, collidesWith, QueryTriggerInteraction.Collide);
 
         return numHits > 0;
     }
@@ -162,13 +175,13 @@ public class Weapon : ScriptableObject
     {
         if (_pool == null)
             _pool = pool;
-
+        
         if (!manualFire)
         {
-            if (_currentCooldown > fireRate * (useDeltaTime ? Time.deltaTime : 1)) return false;
+            if (_currentCooldown < fireRate) return false;
             _currentCooldown = 0;
         }
-
+        
         SpawnBullets(position);
         return true;
     }
@@ -192,12 +205,11 @@ public class Weapon : ScriptableObject
             // enable the bullet
             bullet.gameObject.SetActive(true);
 
-            var newPos = new Vector3(point.x, point.y);
-            newPos = Vector3.Lerp(newPos, Vector3.zero, Random.Range(0, 1f));
+            var newPos = point;
             bullet.position = transform.position + newPos;
             
             // point the bullet in the right direction
-            bullet.forward = new Vector3(dir.x, dir.y);
+            bullet.forward = dir;
             bullet.transform.localScale = Vector3.one * bulletSize.EvaluateMinMaxCurve();
             behaviour.DoBehaviour(bullet, bulletSize.EvaluateMinMaxCurve(), bullet.position);
             if (zone.SpawnDir != SpawnDir.Spherised)
@@ -214,6 +226,7 @@ public class Weapon : ScriptableObject
             _bullets.Add(new Bullet
             {
                 Direction = bullet.forward,
+                PrevPos = bullet.position,
                 IsAlive = true,
                 Speed = bulletSpeed.EvaluateMinMaxCurve(),
                 Lifetime = bulletLifetime.EvaluateMinMaxCurve(),
@@ -232,10 +245,16 @@ public class Weapon : ScriptableObject
         color.a = Selection.activeObject == this ? 1 : 0.05f;
        zone.DrawGizmos(color, transform);
 
+       Gizmos.color = Color.white;
        if (_bullets == null) return;
-       foreach (var b in _bulletTransforms.Where(b => b != null))
+       for (int i = 0; i < _bulletTransforms.Count; i++)
        {
-           Gizmos.DrawWireSphere(b.position, b.localScale.x/2f * bulletSize.EvaluateMinMaxCurve());
+           var b = _bulletTransforms[i];
+           if (b == null) continue;
+           Gizmos.DrawSphere(b.position, b.localScale.x/2f * bulletSize.EvaluateMinMaxCurve());
+           Gizmos.DrawSphere(_bullets[i].PrevPos, b.localScale.x/2f * bulletSize.EvaluateMinMaxCurve());
+           Gizmos.DrawLine(b.position, _bullets[i].PrevPos);
+           
        }
        #endif
     }

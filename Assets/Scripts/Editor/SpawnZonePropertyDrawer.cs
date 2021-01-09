@@ -33,7 +33,7 @@ namespace Weapons.Editor
             AddRelativeProperty( property, "numToSpawn", space, ref currentPos);
             
             AddRelativeProperty( property, "spawnDir", space, ref currentPos);
-            
+            AddRelativeProperty( property, "spawnPlane", space, ref currentPos);
             AddRelativeProperty( property, "surfaceOnly", space, ref currentPos);
             
             AddRelativeProperty(property, "offset", space, ref currentPos);
@@ -61,6 +61,7 @@ namespace Weapons.Editor
                 AddRelativeProperty(property, "numSides", space, ref currentPos);
                 AddRelativeProperty(property, "numPerSide", space, ref currentPos);
                 AddRelativeProperty( property, "radius", space, ref currentPos);
+                AddRelativeProperty(property, "flipVertical", space, ref currentPos);
             }
             
             EditorGUI.indentLevel--;

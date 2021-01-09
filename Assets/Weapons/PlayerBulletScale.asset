@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d6fb9bb806b4efcbd8aefb293811842, type: 3}
   m_Name: PlayerBulletScale
   m_EditorClassIdentifier: 
-  scaleTime: 0.5
+  scaleTime: 0.25
   scaleEase: 15
