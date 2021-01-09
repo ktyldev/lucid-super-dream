@@ -408,7 +408,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 735a92a62479ffd458216009452fec2b, type: 2}
+  - {fileID: 2100000, guid: 439b4d6018bd23e4e91136d099c5b815, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -502,10 +502,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3832fa92b7c91804697fe9f4f858b5d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _ship: {fileID: 0}
   _fractal: {fileID: 3397488660425852632}
   _tunnel: {fileID: 3397488660842926088}
-  _channel: 0
-  _sample: 0
+  _system: {fileID: 11400000, guid: 65b0561f3154c9f438c3a1e1b443d03d, type: 2}
+  _accessibility: {fileID: 11400000, guid: a96923938dea0d542aa804067d5b5e81, type: 2}
 --- !u!1 &3397488661354499722
 GameObject:
   m_ObjectHideFlags: 0
