@@ -9,11 +9,13 @@ Shader "custom/tunnel"
         [HDR] _NebulaColor1("Nebula Color 1", Color) = (1,1,1,1)
         [HDR] _NebulaColor2("Nebula Color 2", Color) = (1,1,1,1)
         [HDR] _FractalColor("Fractal Color", Color) = (1,1,1,1)
+        [HDR] _GroundColor("Ground Color", Color) = (1,1,1,1)
         
         _FractalWeight("Fractal Weight", Range(0.0,1.0)) = 1.0
         _NebulaWeight("Nebula Weight", Range(0.0,1.0)) = 1.0
         _BarsWeight("Bars Weight", Range(0.0,1.0)) = 1.0
         _StarsWeight("Stars Weight", Range(0.0,1.0)) = 1.0
+        _GroundWeight("Ground Weight", Range(0.0,1.0)) = 1.0
         
         _FractalScale("Fractal Scale", Float) = 6.0
         _FractalRotateSpeed("Fractal Rotate Speed", Float) = 20.0
@@ -63,8 +65,9 @@ Shader "custom/tunnel"
             float4 _BackgroundColor;
             float4 _NebulaColor1;
             float4 _NebulaColor2;
-            
             float4 _FractalColor;
+            float4 _GroundColor;
+            
             float _FractalScale = 6.0;
             float _FractalRotateSpeed = 20.0;
             float _FractalPower = 1.0;
@@ -77,6 +80,7 @@ Shader "custom/tunnel"
             
             float _BarsWeight;
             float _StarsWeight;
+            float _GroundWeight;
             
             float _Intensity;
             float _CameraShake = 0.0;
@@ -191,6 +195,20 @@ Shader "custom/tunnel"
                 return fractal * _Intensity * _BarsWeight;
             }
 
+            float4 ground(float2 p, float r, float a)
+            {
+                float4 nothing = float4(0,0,0,0);
+                float angle = PI;
+
+                float t = (abs(a/PI)*PI) * -min(p.y, 0);
+                t = min(r*0.4, t);
+                // t += ;
+                // t *= (1.0-r*0.5);
+
+                // float y = -p.y;
+                
+                return lerp(nothing, _GroundColor, t) * _GroundWeight;
+            }
             
             float4 frag(Varyings IN) : SV_Target
             {
@@ -218,6 +236,7 @@ Shader "custom/tunnel"
                 fractal1 *= max(0, r-_FractalInner);
                 fractal1 *= _FractalWeight;
                 fractal1 *= _Intensity;
+                fractal1 *= max(2.0*normalize(p).y+0.25,0);
                 
                 float2 fuv2 = p / _FractalScale + float2(0.5,0.5);
                 fuv2 = rotateUV(fuv2,-_Time*_FractalRotateSpeed*3.561);
@@ -227,12 +246,16 @@ Shader "custom/tunnel"
                 fractal2 *= max(0, r-_FractalInner);
                 fractal2 *= _FractalWeight;
                 fractal2 *= _Intensity;
+                fractal2 *= max(2.0*normalize(p).y+0.25,0);
                 
                 float4 color = _BackgroundColor;
-                color += nebula(r, a);
-                color += bars(r, p);
                 color += fractal1;
                 color += fractal2;
+
+                color -= ground(p, r, a);
+                
+                color += nebula(r, a);
+                color += bars(r, p);
                 color += stars(r, a);
 
                 // bars, nebula, fractal, 

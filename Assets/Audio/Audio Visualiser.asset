@@ -20,7 +20,7 @@ MonoBehaviour:
     channel: 0
     sample: 525
   _tunnelAnimations:
-  - name: _ShakeStrength
+  - name: _FractalWeight
     multiplier: 2
     channel: 0
     sample: 355

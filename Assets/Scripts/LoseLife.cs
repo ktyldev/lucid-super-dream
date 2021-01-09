@@ -22,6 +22,8 @@ public class LoseLife : MonoBehaviour
 
     public void LifeLost(int livesLeft)
     {
+        _cameraShake.Shake();
+        
         healthMarkers[livesLeft].transform.DOScale(Vector3.zero,  1f).SetEase(Ease.InBack).SetUpdate(true);
         _health.enabled = false;
         var timeVal = Time.timeScale;
@@ -34,8 +36,6 @@ public class LoseLife : MonoBehaviour
             sequence.Append(polygon.material.DOFloat(1,"_FlashAmount", 0.2f).SetUpdate(true));
             sequence.Append(polygon.material.DOFloat(0,"_FlashAmount", 0.2f).SetUpdate(true));
         }
-
-        _cameraShake.Shake();
 
         sequence.Play().OnComplete(() =>
         {
