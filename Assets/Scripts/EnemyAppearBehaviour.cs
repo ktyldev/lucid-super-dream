@@ -17,7 +17,9 @@ public class EnemyAppearBehaviour : BaseBulletBehaviour
         bullet.localScale = Vector3.zero;
         bullet.localPosition = new Vector3(pos.x, pos.y, zPos);
         DOTween.Sequence()
-            .Append(bullet.DOMove(pos, moveInDuration).SetEase(Ease.OutQuint))
+            //.Append(bullet.DOMove(pos, moveInDuration).SetEase(Ease.OutQuint))
+            .Insert(scaleUpDelay, bullet.DORotate(new Vector3(0,0,45), moveInDuration/2f))
+            .Insert(scaleUpDelay + moveInDuration/2f, bullet.DORotate(Vector3.zero, moveInDuration/2f))
             .Insert(scaleUpDelay, bullet.DOScale(Vector3.one * size, scaleUpDuration).SetEase(Ease.OutQuint));
     }
 }

@@ -12,6 +12,7 @@ public class WeaponHandler : MonoBehaviour
 
     [SerializeField] private UnityEvent OnFire;
     [SerializeField] private Vector3Event OnBulletCollide;
+
     private bool _canShoot = false;
 
     private void Awake()
@@ -52,7 +53,7 @@ public class WeaponHandler : MonoBehaviour
         if (weapon.Fire(bulletPool, bulletPos))
             OnFire?.Invoke();
     }
-        
+
     private void OnDrawGizmos()
     {
         weapon.DrawGizmos(bulletPos);

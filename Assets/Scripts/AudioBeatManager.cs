@@ -11,13 +11,13 @@ using Debug = UnityEngine.Debug;
 public class AudioBeatManager : MonoBehaviour, IAudioBeatManager
 {
     [SerializeField] private float bpm;
+    
+    private float _secPerBeat;
     public float TimeBetweenBeats => _secPerBeat;
     
-    private float _bps;
     private int _currentBeat = 0;
     private float _timer;
 
-    private float _secPerBeat;
     
     [SerializeField] [FormerlySerializedAs("OnBeat")] 
     private IntEvent _onBeat;
@@ -34,7 +34,6 @@ public class AudioBeatManager : MonoBehaviour, IAudioBeatManager
     
     private void Awake()
     {
-        _bps = bpm / 60f;
         _secPerBeat = 60f / bpm;
         _timer = 0;
         RuntimeManager.CoreSystem.getMasterChannelGroup(out _channelGroup);

@@ -9,18 +9,24 @@ public class MovePlayer : MonoBehaviour
 {
     [SerializeField] private SerialFloat speed;
     [SerializeField] private RectOffset extents;
+    [SerializeField] private float lerpAmount = 0.95f;
     
     private PlayerInput _input;
     
     private Vector2 _currentInput;
 
     private Transform _transform;
-
+    
     private Rect _pos;
 
+    private float _yPos;
+    private float _zPos;
+    
     private void Awake()
     {
         _transform = transform;
+        _yPos = _transform.localPosition.y;
+        _zPos = _transform.localPosition.z;
     }
 
     private void OnEnable()
@@ -40,15 +46,16 @@ public class MovePlayer : MonoBehaviour
     private void Update()
     {
         _transform.localPosition += (Vector3) _currentInput * speed * Time.deltaTime;
+        
         _transform.localPosition = new Vector3(
             Mathf.Clamp(_transform.localPosition.x, extents.left, extents.right),
-            Mathf.Clamp(_transform.localPosition.y, extents.bottom, extents.top),
-            _transform.localPosition.z);
+            _yPos,
+            _zPos);
     }
 
     private void DoMove(InputAction.CallbackContext context)
     {
         var value = context.ReadValue<Vector2>();
-        _currentInput = value;
+        _currentInput = Vector2.Lerp(_currentInput, value, lerpAmount);
     }
 }

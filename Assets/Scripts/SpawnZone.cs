@@ -9,15 +9,18 @@ using Random = UnityEngine.Random;
 namespace Weapons.Spawning
 {
     public enum SpawnType { Circle, Square, Polygon, Composite }
+    public enum SpawnPlane { XY, XZ }
     public enum SpawnDir { None, Randomised, Spherised, Directional}
+    
     [Serializable]
     public struct SpawnZone
     {
         [SerializeField] private int numToSpawn;
-        [SerializeField] private Vector2 offset;
+        [SerializeField] private Vector3 offset;
         
         [SerializeField] private SpawnType spawnType;
         [SerializeField] private SpawnDir spawnDir;
+        [SerializeField] private SpawnPlane spawnPlane;
         
         [SerializeField] private float width;
         [SerializeField] private float height;
@@ -27,6 +30,7 @@ namespace Weapons.Spawning
 
         [SerializeField] private int numSides;
         [SerializeField] private int numPerSide;
+        [SerializeField] private bool flipVertical;
         
         [SerializeField] private float radius;
         [SerializeField, Range(0, 360)] private float arc;
@@ -37,7 +41,7 @@ namespace Weapons.Spawning
         
         public int NumToSpawn => numToSpawn;
 
-        public void GetPoint(Transform transform, Action<Vector2, Vector2> onGetPoint)
+        public void GetPoint(Transform transform, Action<Vector3, Vector3> onGetPoint)
         {
             switch (spawnType)
             {
@@ -58,7 +62,7 @@ namespace Weapons.Spawning
             }
         }
 
-        private void SpawnPoly(Transform transform, Action<Vector2, Vector2> onGetPoint)
+        private void SpawnPoly(Transform transform, Action<Vector3, Vector3> onGetPoint)
         {
             var points = new Vector2[numSides];
             for (int i = 0; i < numSides; i++)
@@ -81,10 +85,20 @@ namespace Weapons.Spawning
                 {
                     var t = j / (float) numPerSide;
                     t += (1f / numPerSide)/2f;
-                    var point = Vector2.Lerp(points[i], points[next], t);
+                    var point = Vector3.Lerp(points[i], points[next], t);
+                    if (flipVertical)
+                        point.y = 1 - point.y;
+                    
                     point *= radius;
                     
-                    var dir = Vector2.up;
+                    if (spawnPlane == SpawnPlane.XZ)
+                    {
+                        point.z = point.y;
+                        point.y = 0;
+                    }
+                    
+                    var dir = Vector3.up;
+                    
                     if (spawnDir == SpawnDir.Directional)
                         dir = direction;
                     else if (spawnDir == SpawnDir.Spherised)
@@ -92,12 +106,17 @@ namespace Weapons.Spawning
                     else if (spawnDir == SpawnDir.Randomised)
                         dir = Random.insideUnitCircle.normalized;
                     
+                    if (!surfaceOnly)
+                        point = Vector2.Lerp(point, Vector3.zero, Random.Range(0, 1f));
+
+
+
                     onGetPoint?.Invoke(point, dir);
                 }
             }
         }
 
-        private void SpawnComposite(Transform transform, Action<Vector2, Vector2> onGetPoint)
+        private void SpawnComposite(Transform transform, Action<Vector3, Vector3> onGetPoint)
         {
             for (int i = 0; i < numToSpawn; i++)
             {
@@ -105,13 +124,14 @@ namespace Weapons.Spawning
             }
         }
         
-        private void SpawnCircle(Transform transform, Action<Vector2, Vector2> onGetPoint)
+        private void SpawnCircle(Transform transform, Action<Vector3, Vector3> onGetPoint)
         {
             Assert.IsNotNull(onGetPoint);
             
             for (int i = 0; i < numToSpawn; i++)
             {
-                Vector2 point;
+                var point = Vector3.zero;
+                
                 if (!evenDistribution)
                 {
                     var angle = (Random.Range(-arc / 2f, arc / 2f) + 90 - transform.eulerAngles.y) * Mathf.Deg2Rad;
@@ -135,8 +155,13 @@ namespace Weapons.Spawning
                     
                 }
                 
+                if (spawnPlane == SpawnPlane.XZ)
+                {
+                    point.z = point.y;
+                    point.y = 0;
+                }
                 
-                var dir = Vector2.up;
+                var dir = Vector3.up;
                 if (spawnDir == SpawnDir.Spherised || spawnDir == SpawnDir.Directional)
                     dir = point.normalized;
                 else if (spawnDir == SpawnDir.Randomised)
@@ -147,13 +172,13 @@ namespace Weapons.Spawning
             }
         }
         
-        private void SpawnSquare(Transform transform, Action<Vector2, Vector2> onGetPoint)
+        private void SpawnSquare(Transform transform, Action<Vector3, Vector3> onGetPoint)
         {
             Assert.IsNotNull(onGetPoint);
             
             for (int i = 0; i < numToSpawn; i++)
             {
-                var point = new Vector2
+                var point = new Vector3
                 {
                     x = Random.Range(-.5f, .5f),
                     y = Random.Range(-.5f, .5f)
@@ -168,13 +193,17 @@ namespace Weapons.Spawning
                 point.x *= width;
                 point.y *= height;
 
+                if (spawnPlane == SpawnPlane.XZ)
+                {
+                    point.z = point.y;
+                    point.y = 0;
+                }
                 
-                var dir = Vector2.up;
+                var dir = Vector3.up;
                 if (spawnDir == SpawnDir.Spherised || spawnDir == SpawnDir.Directional)
                     dir = point.normalized;
                 else if (spawnDir == SpawnDir.Randomised)
                     dir = Random.insideUnitCircle.normalized;
-
                 
                 onGetPoint(point + offset, dir);
             }
@@ -212,9 +241,9 @@ namespace Weapons.Spawning
             Gizmos.color = color;
             SpawnCircle(transform, (point, dir) =>
             {
-                Gizmos.DrawSphere(new Vector3(point.x, 0, point.y), 0.25f);
+                Gizmos.DrawSphere( transform.position + point, 0.25f);
                 if (color.a > 0.5f)
-                    Gizmos.DrawRay(new Vector3(point.x, 0, point.y), new Vector3(dir.x, 0, dir.y));
+                    Gizmos.DrawRay( transform.position + point, new Vector3(dir.x, 0, dir.y));
             });
         }
 
@@ -223,9 +252,9 @@ namespace Weapons.Spawning
             Gizmos.color = color;
             SpawnPoly(transform, (point, dir) =>
             {
-                Gizmos.DrawSphere(transform.position + new Vector3(point.x, 0, point.y), 0.25f);
+                Gizmos.DrawSphere(transform.position + point, 0.25f);
                 if (color.a > 0.5f)
-                    Gizmos.DrawRay(transform.position + new Vector3(point.x, 0, point.y), new Vector3(dir.x, 0, dir.y));
+                    Gizmos.DrawRay(transform.position + point, new Vector3(dir.x, 0, dir.y));
             });
         }
         
@@ -234,9 +263,9 @@ namespace Weapons.Spawning
             Gizmos.color = color;
             SpawnSquare(transform, (point, dir) =>
             {
-                Gizmos.DrawSphere(new Vector3(point.x, 0, point.y), 0.25f);
+                Gizmos.DrawSphere(transform.position + point, 0.25f);
                 if (color.a > 0.5f)
-                    Gizmos.DrawRay(new Vector3(point.x, 0, point.y), new Vector3(dir.x, 0, dir.y));
+                    Gizmos.DrawRay(transform.position + point, new Vector3(dir.x, 0, dir.y));
             });
         }
     }

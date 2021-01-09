@@ -7,9 +7,10 @@ Shader "custom/ship"
     { 
         [HDR] _Color1("Color 1", Color) = (1,1,1,1)
         [HDR] _Color2("Color 2", Color) = (1,1,1,1)
+        [HDR] _FlashColor("Flash Color", Color) = (1.1,1.1,1.1,1)
         _FadeStrength("Fade Strength", Float) = 0.1
         _VertexScale("Vertex Scale", Float) = 0
-        
+        _FlashAmount("Flash Amount", Float) = 0
         _NoiseMap("Noise Map", 2D) = "black"
     }
 
@@ -43,8 +44,10 @@ Shader "custom/ship"
 
             float4 _Color1;
             float4 _Color2;
+            float4 _FlashColor;
             float _VertexScale;
             float _FadeStrength;
+            float _FlashAmount;
             
             // This macro declares _BaseMap as a Texture2D object.
             TEXTURE2D(_BaseMap);
@@ -92,7 +95,8 @@ Shader "custom/ship"
                 float2 p = -1.0+2.0*IN.positionHCS.xy/res.xy;
 
                 float t = length(p);
-                return lerp(_Color1,_Color2,t * _FadeStrength);
+                float4 shaderColor = lerp(_Color1,_Color2,t * _FadeStrength);
+                return lerp(shaderColor, _FlashColor, _FlashAmount);
             }
             ENDHLSL
         }

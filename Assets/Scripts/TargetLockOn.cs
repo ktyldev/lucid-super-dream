@@ -60,9 +60,14 @@ public class TargetLockOn : MonoBehaviour
         for (int i = 0; i < numHits; i++)
         {
             if (_targets.Contains(_colliders[i].transform)) continue;
-            _targets.Add(_colliders[i].transform);
-            OnTargetFound?.Invoke(_colliders[i].transform);
-            
+            if (_targets.Count < maxTargets)
+            {
+                _targets.Add(_colliders[i].transform);
+
+                OnTargetFound?.Invoke(_colliders[i].transform);
+
+            }
+
             if (_targets.Count >= maxTargets)
                 break;
         }
