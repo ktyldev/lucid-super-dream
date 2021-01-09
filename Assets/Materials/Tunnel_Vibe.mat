@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Tunnel_Safe 1
+  m_Name: Tunnel_Vibe
   m_Shader: {fileID: 4800000, guid: 9d7afb8f866fe8a4cbbf660a52c17084, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -117,15 +117,15 @@ Material:
     - _FractalPower: 1
     - _FractalRotateSpeed: 20
     - _FractalScale: 6
-    - _FractalWeight: 0
+    - _FractalWeight: 0.1
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Intensity: 1
     - _Metallic: 0
-    - _Nebula1Power: 1
-    - _Nebula2Power: 1
-    - _NebulaWeight: 0
+    - _Nebula1Power: 2
+    - _Nebula2Power: 3
+    - _NebulaWeight: 0.2
     - _OcclusionStrength: 1
     - _OverallPower: 1
     - _Parallax: 0.005
@@ -141,7 +141,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BackgroundColor: {r: 0.09794411, g: 0.27564344, b: 0.2924528, a: 0}
+    - _BackgroundColor: {r: 0.09803922, g: 0.109295845, b: 0.29411766, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
