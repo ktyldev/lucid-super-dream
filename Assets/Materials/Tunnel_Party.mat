@@ -117,7 +117,7 @@ Material:
     - _FractalPower: 1
     - _FractalRotateSpeed: 20
     - _FractalScale: 6
-    - _FractalWeight: 0.45
+    - _FractalWeight: 0.15
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

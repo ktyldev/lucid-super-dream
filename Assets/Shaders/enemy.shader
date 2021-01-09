@@ -11,12 +11,12 @@ Shader "custom/enemy"
 //        [HDR] _Color2("Color 2", Color) = (1,1,1,1)
 //        _FadeStrength("Fade Strength", Float) = 0.1
 //        _VertexScale("Vertex Scale", Float) = 0
+        _PulseIntensity("Pulse Intensity", Float) = 1.0
         
         _M("M", Float) = 0.5
         _C("C", Float) = 0.0
         
         _NoiseMap("Noise Map", 2D) = "black"
-        _VertexDistortion("Vertex Distortion", Float) = 1.0
     }
 
     SubShader
@@ -55,9 +55,11 @@ Shader "custom/enemy"
             float4 _Color1;
             float4 _Color2;
             float _Alpha;
-            float _TimeToNextBeat;
+            float _PulseIntensity;
+            
+            float _DistanceToNextBeat;
+            float _DistanceFromLastBeat;
 
-            float _VertexDistortion;
             // float _VertexScale;
             // float _FadeStrength;
             
@@ -81,22 +83,30 @@ Shader "custom/enemy"
                 Varyings OUT;
                 
                 float3 vpos = IN.positionOS.xyz;
-                float3 wpos = TransformObjectToWorld(vpos);
-                OUT.wpos = wpos;
                 OUT.normal = IN.normal;
                 
-                float d = 1.0+length(wpos)*0.5;
-                float2 uv = wpos.zx;
-                float noise = SAMPLE_TEXTURE2D_LOD(_NoiseMap, sampler_NoiseMap, uv, 0) - 0.5;
+                float beat = _DistanceToNextBeat*_DistanceToNextBeat;
+                vpos *= 1.0+beat*_PulseIntensity;
                 
+                //float d = 1.0+length(wpos)*0.5;
+                //float2 uv = wpos.zx;
+                // float noise = SAMPLE_TEXTURE2D_LOD(_NoiseMap, sampler_NoiseMap, uv, 0) - 0.5;
                 // vpos += _VertexScale*float3(0,0,5)*d;
-                vpos += float3(_VertexDistortion,0,0)*noise*d;
                 // vpos += sin(180)*sin(1800)*float3(0,0,5)*d;
-
                 // noise *= d*d * 0.1;
-                
                 // vpos *= lerp (0.9,1.1,noise);
+
                 
+                float3 wpos = TransformObjectToWorld(vpos);
+                float3 fromCentre = normalize(wpos);
+                float3 distanceFromCentre = length(wpos);
+
+                float3 wposOffset = float3(0,0,fromCentre.y*fromCentre.x)*distanceFromCentre*beat;
+                wpos += wpos;
+                vpos += wposOffset;
+                
+                
+                OUT.wpos = wpos;
                 OUT.positionHCS = TransformObjectToHClip(vpos);
                 // The TRANSFORM_TEX macro performs the tiling and offset
                 // transformation.

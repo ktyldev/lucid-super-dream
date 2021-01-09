@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 using FMOD;
+using Ktyl.Util;
 using UnityEngine;
 using INITFLAGS = FMOD.Studio.INITFLAGS;
 
@@ -20,9 +21,9 @@ public class AudioVisualizer : ScriptableObject
         public float Initial { get; set; }
     }
 
-    // private Material _fractal;
-    // private Material _tunnel;
-    // private Material _ship;
+    [SerializeField] private SerialFloat _distanceToNextBeat;
+    [SerializeField] private SerialFloat _distanceSinceLastBeat;
+    
     [SerializeField] private ShaderPropertyAnimation[] _fractalAnimations;
     [SerializeField] private ShaderPropertyAnimation[] _tunnelAnimations;
     [SerializeField] private ShaderPropertyAnimation[] _shipAnimations;
@@ -51,6 +52,10 @@ public class AudioVisualizer : ScriptableObject
 
     public void Update(DSP fft, Renderer fractal, Renderer tunnel, Renderer ship)
     {
+        // update beat-based things
+        Shader.SetGlobalFloat("_DistanceSinceLastBeat", _distanceSinceLastBeat);
+        Shader.SetGlobalFloat("_DistanceToNextBeat", _distanceToNextBeat);
+        
         fft.getParameterData((int) FMOD.DSP_FFT.SPECTRUMDATA, out var unmanagedData, out var length);
         var fftData = (FMOD.DSP_PARAMETER_FFT) Marshal.PtrToStructure(unmanagedData, typeof(FMOD.DSP_PARAMETER_FFT));
         

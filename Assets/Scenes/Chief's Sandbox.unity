@@ -531,7 +531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2282.9778
+      value: 2298.391
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.y
@@ -887,7 +887,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30d54cd9cbc0b4024b4c5af11532f553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 180
+  _distanceToNextBeat: {fileID: 11400000, guid: 8f05f93192443bc42b8523048bde0dc4, type: 2}
+  _distanceToOffbeat: {fileID: 0}
+  _distanceToMeasure: {fileID: 0}
+  _distanceSinceLastBeat: {fileID: 11400000, guid: 8d22f3ed946820445adcc586d2cc6e5a, type: 2}
+  _distanceSinceOffbeat: {fileID: 0}
+  _distanceSinceMeasure: {fileID: 0}
+  bpm: 90
   _onBeat:
     m_PersistentCalls:
       m_Calls:
