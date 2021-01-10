@@ -500,17 +500,17 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 9429becea685bce4fa7b6595601ea615, type: 2}
-    - target: {fileID: 3397488660842926092, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1759.5208
+      value: 1850.4741
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.y
       value: 839.3538
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 105.96986
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalPosition.y
