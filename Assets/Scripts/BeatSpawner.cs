@@ -22,7 +22,7 @@ public class BeatSpawner : ShootInputBase
     {
         _shoot = beat % spawnOnBeat == 0;
         if (_shoot)
-            transform.position = new Vector3(Random.Range(xMin, xMax), transform.position.y, transform.position.z);
+            transform.position = new Vector3(Mathf.Lerp(xMin, xMax, Mathf.Sin(beat)), transform.position.y, transform.position.z);
     }
 
     public override bool IsShooting()

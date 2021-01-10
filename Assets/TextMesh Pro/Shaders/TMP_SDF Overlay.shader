@@ -107,7 +107,8 @@ SubShader {
 	Lighting Off
 	Fog { Mode Off }
 	ZTest Always
-	Blend One OneMinusSrcAlpha
+	Blend OneMinusDstColor OneMinusSrcAlpha
+	
 	ColorMask [_ColorMask]
 
 	Pass {

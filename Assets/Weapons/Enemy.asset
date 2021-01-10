@@ -65,7 +65,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_ConstantMin: 20
-    m_ConstantMax: 30
+    m_ConstantMax: 60
   bulletLifetime:
     m_Mode: 0
     m_CurveMultiplier: 0
