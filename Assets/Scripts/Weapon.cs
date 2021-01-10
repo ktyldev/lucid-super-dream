@@ -123,6 +123,7 @@ public class Weapon : ScriptableObject
 
     public void FixedUpdate()
     {
+        var toRemove = new List<int>();
         // loop through the bullets. Backwards, because that is marginally quicker
         for (var i = _bullets.Count - 1; i >= 0; i--)
         {
@@ -149,12 +150,16 @@ public class Weapon : ScriptableObject
                 _currentBullet.IsAlive = false;
                 _currentTransform.gameObject.SetActive(false);
                 _pool.ReturnObject(_currentTransform, _currentBullet.Idx);
-                _bullets.RemoveAt(i);
-                _bulletTransforms.RemoveAt(i);
+                toRemove.Add(i);
             }
             
             // apply the changes we made
             _bullets[i] = _currentBullet;
+        }
+        foreach (var i in toRemove)
+        {
+            _bullets.RemoveAt(i);
+            _bulletTransforms.RemoveAt(i);
         }
     }
 

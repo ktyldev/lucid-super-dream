@@ -1,9 +1,6 @@
-using System;
 using Ktyl.Util;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 using PlayerInput = Input.PlayerInput;
 
 public class MovePlayer : MonoBehaviour

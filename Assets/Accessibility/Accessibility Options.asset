@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c271cfa846431634db54fa41238b7b35, type: 3}
   m_Name: Accessibility Options
   m_EditorClassIdentifier: 
-  _mode: 2
+  _mode: 0
   _calm:
     _tunnel: {fileID: 2100000, guid: 439b4d6018bd23e4e91136d099c5b815, type: 2}
   _vibe:
