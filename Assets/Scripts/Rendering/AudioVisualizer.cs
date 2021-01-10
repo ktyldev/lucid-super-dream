@@ -63,22 +63,8 @@ public class AudioVisualizer : ScriptableObject
         var l = spectrum.Length;
         if (l == 0) return;
 
-        for (int i = 0; i < _fractalAnimations.Length; i++)
-        {
-            var anim = _fractalAnimations[i];
-            var a = spectrum[anim.channel][anim.sample];
-            
-            fractal.material.SetFloat(anim.name, anim.Initial + anim.multiplier * a);
-        }
-        
-        for (int i = 0; i < _tunnelAnimations.Length; i++)
-        {
-            var anim = _tunnelAnimations[i];
-            var a = spectrum[anim.channel][anim.sample];
-            
-            tunnel.material.SetFloat(anim.name, anim.Initial + anim.multiplier * a);
-        }
-
+        UpdateAnimations(spectrum, _fractalAnimations, fractal);
+        UpdateAnimations(spectrum, _tunnelAnimations, tunnel);
         UpdateAnimations(spectrum, _shipAnimations, ship);
     }
 
@@ -88,7 +74,8 @@ public class AudioVisualizer : ScriptableObject
         {
             var anim = animations[i];
             var a = spectrum[anim.channel][anim.sample];
-            renderer.material.SetFloat(anim.name, anim.Initial + anim.multiplier * a);
+            var v = anim.Initial + anim.multiplier * a * _accessibility.Intensity.Value;
+            renderer.material.SetFloat(anim.name, v);
         }
     }
 }

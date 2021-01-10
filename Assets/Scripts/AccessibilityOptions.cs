@@ -24,10 +24,12 @@ public class AccessibilityOptions : ScriptableObject
     [Serializable]
     public struct IntensitySetting
     {
+        public float Value => _value;
+        [SerializeField] [Range(0,1)] private float _value;
+        
         public Material Tunnel => _tunnel;
         [SerializeField] private Material _tunnel;
     }
-
     public IntensitySetting Intensity => this[_mode];
 
     [SerializeField] private IntensitySetting _calm;
