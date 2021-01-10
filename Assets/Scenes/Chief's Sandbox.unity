@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1759.5208
+      value: 1492.1846
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.y
@@ -898,7 +898,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222495242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.62, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1173812008}
@@ -947,7 +947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9463c7c973b354f1c882567f52337aed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numObjects: 3000
+  numObjects: 500
   prefab: {fileID: 1738226812227614580, guid: e084e082567284f79a41423c4fe1adab, type: 3}
   numToSpawnPerFrame: 10
 --- !u!1 &1581716069
