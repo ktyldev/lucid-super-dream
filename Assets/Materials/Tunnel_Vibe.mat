@@ -107,26 +107,32 @@ Material:
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
+    - _CoreRadius: 1
+    - _CoreThiccness: 1
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _FractalFadeHeight: 0.25
     - _FractalInner: 0.3
     - _FractalPower: 1
     - _FractalRotateSpeed: 20
     - _FractalScale: 6
-    - _FractalWeight: 0.1
+    - _FractalWeight: 0
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _GroundWeight: 1
     - _Intensity: 1
     - _Metallic: 0
-    - _Nebula1Power: 2
-    - _Nebula2Power: 3
-    - _NebulaWeight: 0.2
+    - _Nebula1Power: 1
+    - _Nebula2Power: 1
+    - _NebulaWeight: 0
     - _OcclusionStrength: 1
+    - _OuterCircleRadius: 0.5
+    - _OuterCircleThickness: 0.1
     - _OverallPower: 1
     - _Parallax: 0.005
     - _QueueOffset: 0
@@ -136,16 +142,18 @@ Material:
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StarsWeight: 0.1
+    - _StarsWeight: 0.05
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BackgroundColor: {r: 0.09803922, g: 0.109295845, b: 0.29411766, a: 0}
+    - _BackgroundColor: {r: 0.09794411, g: 0.27564344, b: 0.2924528, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CircleColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FractalColor: {r: 1.3876811, g: 1.0683917, b: 2.3455496, a: 1}
+    - _GroundColor: {r: 1, g: 1, b: 1, a: 1}
     - _NebulaColor1: {r: 0, g: 0.67775345, b: 1, a: 1}
     - _NebulaColor2: {r: 0.54217625, g: 0.25, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

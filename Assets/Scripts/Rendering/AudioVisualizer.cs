@@ -50,7 +50,7 @@ public class AudioVisualizer : ScriptableObject
         }
     }
 
-    public void Update(DSP fft, Renderer fractal, Renderer tunnel, Renderer ship)
+    public void UpdateAudio(DSP fft, Renderer fractal, Renderer tunnel, Renderer ship)
     {
         // update beat-based things
         Shader.SetGlobalFloat("_DistanceSinceLastBeat", _distanceSinceLastBeat);

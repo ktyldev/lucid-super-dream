@@ -9,6 +9,7 @@ Shader "custom/julia"
         _Color2("Color 2", Color) = (1,1,1,1)
         
         _BassPower("Bass Power", Float) = 0.0
+        _TimeOffset("Time Offset", Float) = 10.0
         
         _Fractality("Fractality", Float) = 1.02
     }
@@ -44,6 +45,7 @@ Shader "custom/julia"
             float4 _Color1;
             float4 _Color2;
             float _Fractality;
+            float _TimeOffset;
             float _BassAmplitude;
             
             // This macro declares _BaseMap as a Texture2D object.
@@ -76,7 +78,7 @@ Shader "custom/julia"
 
                 float2 z = p * 1.5;
                 float2 c;
-                float an = _Time + _BassAmplitude;
+                float an = _TimeOffset + _Time + _BassAmplitude;
                 c.x = 0.5*cos(an) - 0.25*cos(2.0*an);
                 c.y = 0.5*sin(an) - 0.25*sin(2.0*an);
                 c *= _Fractality; 

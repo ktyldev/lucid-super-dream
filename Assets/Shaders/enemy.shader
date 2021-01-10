@@ -7,11 +7,14 @@ Shader "custom/enemy"
     { 
         [HDR] _Color1("Color1", Color) = (1,1,1,1)
         [HDR] _Color2("Color2", Color) = (1,1,1,1)
+        [HDR] _FarColor("Far Color", Color) = (1,1,1,1)
+        
         _Alpha("Alpha", Float) = 1.0
 //        [HDR] _Color2("Color 2", Color) = (1,1,1,1)
 //        _FadeStrength("Fade Strength", Float) = 0.1
 //        _VertexScale("Vertex Scale", Float) = 0
         _PulseIntensity("Pulse Intensity", Float) = 1.0
+        _TrackWidth("Track Width", Float) = 20
         
         _M("M", Float) = 0.5
         _C("C", Float) = 0.0
@@ -54,8 +57,12 @@ Shader "custom/enemy"
             float _C = 0.0;
             float4 _Color1;
             float4 _Color2;
+            float4 _FarColor;
             float _Alpha;
             float _PulseIntensity;
+            
+            float _TrackWidth;
+            float _PlayerXPos;
             
             float _DistanceToNextBeat;
             float _DistanceFromLastBeat;
@@ -77,7 +84,7 @@ Shader "custom/enemy"
                 float4 _BaseMap_ST;
                 float4 _NoiseMap_ST;
             CBUFFER_END
-            
+
             Varyings vert(Attributes IN)
             {
                 Varyings OUT;
@@ -88,6 +95,8 @@ Shader "custom/enemy"
                 float beat = _DistanceToNextBeat*_DistanceToNextBeat;
                 vpos *= 1.0+beat*_PulseIntensity;
                 
+                vpos.x *= 0.3;
+                
                 //float d = 1.0+length(wpos)*0.5;
                 //float2 uv = wpos.zx;
                 // float noise = SAMPLE_TEXTURE2D_LOD(_NoiseMap, sampler_NoiseMap, uv, 0) - 0.5;
@@ -96,15 +105,33 @@ Shader "custom/enemy"
                 // noise *= d*d * 0.1;
                 // vpos *= lerp (0.9,1.1,noise);
 
+                // float3 owpos = TransformObjectToWorld(float3(0,0,0));
                 
+                // calculate position on circle
                 float3 wpos = TransformObjectToWorld(vpos);
-                float3 fromCentre = normalize(wpos);
-                float3 distanceFromCentre = length(wpos);
-
-                float3 wposOffset = float3(0,0,fromCentre.y*fromCentre.x)*distanceFromCentre*beat;
-                wpos += wpos;
-                vpos += wposOffset;
+                float radius = 4.0;
+                float d = _TrackWidth;
                 
+                float r = radius - vpos.y * 0.5;
+                float x = wpos.x;
+                x -= _PlayerXPos;
+                // x += 0.5*PI;
+                
+                float a = 2*PI*(x/d + 0.5);
+                a += 0.5*PI;
+                // a *= (radius - r) * -1.0;
+                
+
+                
+                wpos = float3(cos(a)*r,sin(a)*r,wpos.z);
+                vpos = TransformWorldToObject(wpos);
+
+                // TransformWorldToObject()
+                // vpos += wposOffset;
+
+                // float x_with_distance = normalize(wpos.x)*wpos.z*0.1;
+                // x_with_distance = abs(x_with_distance);
+                // vpos += float3(x_with_distance,0,0);
                 
                 OUT.wpos = wpos;
                 OUT.positionHCS = TransformObjectToHClip(vpos);
@@ -130,6 +157,8 @@ Shader "custom/enemy"
                 // float t = length(p);
                 // return lerp(_Color1,_Color2,t * _FadeStrength);
                 float4 c = float4(lerp(_Color1, _Color2, t).xyz, _Alpha);
+                c = lerp(c, _FarColor, IN.wpos.z * 0.0075);
+                
                 return c;
             }
             ENDHLSL

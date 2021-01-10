@@ -24,6 +24,14 @@ MonoBehaviour:
     multiplier: 2
     channel: 0
     sample: 355
+  - name: _NebulaWeight
+    multiplier: 5
+    channel: 0
+    sample: 355
+  - name: _BarsWeight
+    multiplier: -500
+    channel: 1
+    sample: 525
   _shipAnimations:
   - name: _VertexScale
     multiplier: 3703.2

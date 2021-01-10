@@ -11,7 +11,7 @@ public class LoseLife : MonoBehaviour
     [SerializeField] private Renderer[] healthMarkers;
     [SerializeField] private Renderer polygon;
 
-    [SerializeField] private CameraShake _cameraShake;
+    [SerializeField] private TunnelController _tunnelController;
     
     private EntityHealth _health;
     
@@ -22,7 +22,7 @@ public class LoseLife : MonoBehaviour
 
     public void LifeLost(int livesLeft)
     {
-        _cameraShake.Shake();
+        _tunnelController.LoseLifeShake();
         
         healthMarkers[livesLeft].transform.DOScale(Vector3.zero,  1f).SetEase(Ease.InBack).SetUpdate(true);
         _health.enabled = false;

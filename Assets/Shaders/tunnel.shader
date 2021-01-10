@@ -10,20 +10,31 @@ Shader "custom/tunnel"
         [HDR] _NebulaColor2("Nebula Color 2", Color) = (1,1,1,1)
         [HDR] _FractalColor("Fractal Color", Color) = (1,1,1,1)
         [HDR] _GroundColor("Ground Color", Color) = (1,1,1,1)
+        [HDR] _CoreColor("Core Color", Color) = (1,1,1,1)
+        [HDR] _BarsColor("Bars Color", Color) = (1,1,1,1)
         
+        _SkyWeight("Sky Weight", Float) = 1.0
         _FractalWeight("Fractal Weight", Range(0.0,1.0)) = 1.0
         _NebulaWeight("Nebula Weight", Range(0.0,1.0)) = 1.0
-        _BarsWeight("Bars Weight", Range(0.0,1.0)) = 1.0
+        _BarsWeight("Bars Weight", Float) = 1.0
         _StarsWeight("Stars Weight", Range(0.0,1.0)) = 1.0
-        _GroundWeight("Ground Weight", Range(0.0,1.0)) = 1.0
+        _GroundWeight("Ground Weight", Float) = 1.0
+        _GroundMaskAngle("Ground Mask Angle", Float) = 1.0
         
         _FractalScale("Fractal Scale", Float) = 6.0
         _FractalRotateSpeed("Fractal Rotate Speed", Float) = 20.0
         _FractalPower("Fractal Power", Float) = 1.0
         _FractalInner("Fractal Inner", Float) = 0.2
+        _FractalFadeHeight("Fractal Fade Height", Float) = 0.25
         
         _Nebula1Power("Nebula 1 Power", Float) = 1.0
         _Nebula2Power("Nebula 2 Power", Float) = 1.0
+        
+        _CoreRadius("Core Radius", Range(0, 1.0)) = 1.0
+        _CoreThiccness("Core Thiccness", Range(0,1.0)) = 1.0
+        
+        _OuterCircleRadius("Outer Circle Radius", Range(0,10)) = 0.5
+        _OuterCircleThickness("Outer Circle Thickness", Range(0,1.0)) = 0.1
         
         _NebulaMap("Nebula Map", 2D) = "black"
         _StarMap("Star Map", 2D) = "black"
@@ -67,24 +78,42 @@ Shader "custom/tunnel"
             float4 _NebulaColor2;
             float4 _FractalColor;
             float4 _GroundColor;
+            float4 _CoreColor;
+            float4 _BarsColor;
             
             float _FractalScale = 6.0;
             float _FractalRotateSpeed = 20.0;
             float _FractalPower = 1.0;
             float _FractalInner = 0.2;
             float _FractalWeight = 1.0;
+            float _FractalFadeHeight = 0.25;
 
             float _Nebula1Power = 1.0;
             float _Nebula2Power = 1.0;
             float _NebulaWeight = 1.0;
-            
+
+            float _SkyWeight;
             float _BarsWeight;
             float _StarsWeight;
             float _GroundWeight;
+            float _GroundMaskAngle;
+
+            // circles
+            float _CoreRadius;
+            float _CoreThiccness;
+            float _OuterCircleRadius;
+            float _OuterCircleThickness;
             
             float _Intensity;
             float _CameraShake = 0.0;
 
+            float _DistanceToNextBeat;
+            float _DistanceSinceLastBeat;
+            
+            float _PlayerXPos;
+            float _PlayerXMove;
+            float _TrackWidth = 20;
+            
             TEXTURE2D(_NebulaMap);
             SAMPLER(sampler_NebulaMap);
             TEXTURE2D(_StarMap);
@@ -178,7 +207,6 @@ Shader "custom/tunnel"
                 fuv1 = rotateUV(fuv1,_Time*_FractalRotateSpeed);
                 half4 fractal1 = SAMPLE_TEXTURE2D(_FractalMap, sampler_FractalMap, fuv1);
                 fractal1 *= _FractalColor;
-                fractal1 *= max(0, r-_FractalInner);
                 fractal1 *= _FractalPower;
 
                 // fractal 2
@@ -187,7 +215,6 @@ Shader "custom/tunnel"
                 fuv2.x=1.0-fuv2.x;
                 half4 fractal2 = SAMPLE_TEXTURE2D(_FractalMap, sampler_FractalMap, fuv2);
                 fractal2 *= _FractalColor * sin(_Time*3);
-                fractal2 *= max(0, r-_FractalInner);
                 fractal2 *= _FractalPower;
 
                 half4 fractal = max(fractal1,fractal2) * _Intensity;
@@ -201,13 +228,43 @@ Shader "custom/tunnel"
                 float angle = PI;
 
                 float t = (abs(a/PI)*PI) * -min(p.y, 0);
-                t = min(r*0.4, t);
+                t = min(r, t);
+                // t *= -abs(p.y);
                 // t += ;
                 // t *= (1.0-r*0.5);
 
                 // float y = -p.y;
                 
                 return lerp(nothing, _GroundColor, t) * _GroundWeight;
+            }
+
+            float4 blurry_circle(float2 p, float radius, float thickness)
+            {
+                float r_p = length(p);
+                // outer circle is white/circle color
+                // inner circle is black and a bit smaller
+
+                float d =abs(radius-r_p)*1.0/thickness;
+                d*=d;
+                float4 color = max(d, 0);
+                color.a = 1.0;
+
+                // color -= max((_CircleRadius-_CircleThickness)-r, 0);
+
+                color = 1.0-color;
+
+                float b = _DistanceToNextBeat;
+                b*=b;
+                
+                color *= 1.0+b;
+                
+                return max(color, 0);
+            }
+
+            float4 filled_circle(float2 p, float r)
+            {
+                float inside = step(length(p),r);
+                return lerp(float4(0,0,0,0),float4(1,1,1,1),inside);
             }
             
             float4 frag(Varyings IN) : SV_Target
@@ -233,35 +290,99 @@ Shader "custom/tunnel"
                 fuv1 = rotateUV(fuv1,_Time*_FractalRotateSpeed);
                 half4 fractal1 = SAMPLE_TEXTURE2D(_FractalMap, sampler_FractalMap, fuv1);
                 fractal1 *= _FractalColor;
-                fractal1 *= max(0, r-_FractalInner);
+                // fractal1 *= max(0, r-_CoreRadius);
                 fractal1 *= _FractalWeight;
                 fractal1 *= _Intensity;
-                fractal1 *= max(2.0*normalize(p).y+0.25,0);
                 
                 float2 fuv2 = p / _FractalScale + float2(0.5,0.5);
-                fuv2 = rotateUV(fuv2,-_Time*_FractalRotateSpeed*3.561);
-                fuv2.x=1.0-fuv2.x;
+                fuv2 = rotateUV(fuv2,PI*-(_PlayerXPos/20.0));
+                // fuv2.x=1.0-fuv2.x;
                 half4 fractal2 = SAMPLE_TEXTURE2D(_FractalMap, sampler_FractalMap, fuv2);
                 fractal2 *= _FractalColor * sin(_Time*3);
-                fractal2 *= max(0, r-_FractalInner);
+                // fractal2 *= max(0, r-_CoreRadius);
                 fractal2 *= _FractalWeight;
                 fractal2 *= _Intensity;
-                fractal2 *= max(2.0*normalize(p).y+0.25,0);
                 
                 float4 color = _BackgroundColor;
-                color += fractal1;
-                color += fractal2;
 
-                color -= ground(p, r, a);
+                // precalc some stuff
+                float f = fractal1 + fractal2;
+                // float f = fractal2;
+                float g = ground(p, r, a);
+                // float g_mask = step(_GroundMaskAngle,g);
+                float n = nebula(r, a);
+                float s = stars(r, a);
+                float b = bars(r, p);
+
+                // fractal
+                // color += fractal_both;
+
+                // nebula
+                // float4 normal_bars = normalize(bars(r,p));
+                // color += normal_bars;
+                // float4 nebula_bars = bars(r, p) * _DistanceSinceLastBeat * 5;
+                // color += stars(r, a);
+                // color += circle(p, r);
+                // float4 neb = nebula(r, a);
+                // color += neb;
                 
-                color += nebula(r, a);
-                color += bars(r, p);
-                color += stars(r, a);
+                // sky
+                float4 sky = _BackgroundColor;
+                sky += f * _FractalColor;            // fractal
+                sky += s;            // stars
+                float4 clouds = n;
+                clouds *= (1.0-g);    // mask out ground
+                sky += clouds;
+                sky *= (1.0-g);  // mask out ground
+                
+                // sky = max(f,s);
+                // stars masked by ground
+                // color += max(0,s,g_mask);
 
+                
+                // ground
+                float4 ground_color = float4(0,0,0,0);
+                // hazy ground base
+                ground_color += g;
+                // speedy boye
+                float4 ground_fast = n * g;
+                ground_color += ground_fast;
+                ground_color *= _GroundColor;
+                color = max(color, ground_color);
+
+                // bars
+                float4 bars_color = b;
+                bars_color = lerp(bars_color,ground_color,g);
+                bars_color *= _BarsColor;
+                bars_color *= lerp(0, bars_color, _DistanceToNextBeat);
+                bars_color = lerp(bars_color, ground_color, g);
+                
+                sky += bars_color * _BarsWeight;
+                sky *= _SkyWeight;
+                color += sky;
+
+                // core
+                float4 core_color = blurry_circle(p, _CoreRadius, _CoreThiccness);
+                core_color *= _CoreColor;
+                color += core_color;
+                // color = lerp(color, core_color, step(0.001,core_color));
+                
+                // rays
+                float4 rays_colour;
+                
+                // spee
+                // color += lerp(sky, n, g);
+                
+                
+                // float4 outer_circle = blurry_circle(p,_OuterCircleRadius,_OuterCircleThickness);
+                // color += lerp(0,outer_circle,ground(p,r,a));
+                
+                // float4 core = filled_circle(p,_CoreRadius);
+                // color += core;
+
+                // color = float4(1,1,1,1)*outer_circle;
                 // bars, nebula, fractal, 
                 // average across all fx
-                
-                color = saturate(color);
                 
                 return color;
             }

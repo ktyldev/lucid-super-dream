@@ -492,10 +492,6 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3397488660173986648, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
-      propertyPath: field of view
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 3397488660571973483, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 0
@@ -503,18 +499,18 @@ PrefabInstance:
     - target: {fileID: 3397488660842926088, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 439b4d6018bd23e4e91136d099c5b815, type: 2}
+      objectReference: {fileID: 2100000, guid: 9429becea685bce4fa7b6595601ea615, type: 2}
     - target: {fileID: 3397488660842926092, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2303.7488
+      value: 1767.2549
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1039.2305
+      value: 839.3538
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalPosition.y
@@ -576,6 +572,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -100
       objectReference: {fileID: 0}
+    - target: {fileID: 5076175860835241000, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: _playerXPos
+      value: 
+      objectReference: {fileID: 11400000, guid: 25280515e18c66c44827faf0cb01ca42, type: 2}
     - target: {fileID: 5076175860835241000, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: _anim.m_Curve.Array.size
       value: 3
@@ -758,6 +758,7 @@ MonoBehaviour:
     m_Bottom: -4
   lerpAmount: 0.95
   horizontalInput: {fileID: 11400000, guid: 7371e84b7c82f4631a96ac1c00b55fa0, type: 2}
+  horizontalPosition: {fileID: 11400000, guid: 25280515e18c66c44827faf0cb01ca42, type: 2}
 --- !u!114 &1173812010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -822,7 +823,7 @@ MonoBehaviour:
   - {fileID: 1611642542}
   - {fileID: 728836294}
   polygon: {fileID: 1639649353}
-  _cameraShake: {fileID: 531937975}
+  _tunnelController: {fileID: 531937975}
 --- !u!1 &1215971662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,5 +1262,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8761754940900000814, guid: bd5f27d2b3a6b4a40aab2af5c3c4586e, type: 3}
+      propertyPath: _ship
+      value: 
+      objectReference: {fileID: 1173812008}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd5f27d2b3a6b4a40aab2af5c3c4586e, type: 3}

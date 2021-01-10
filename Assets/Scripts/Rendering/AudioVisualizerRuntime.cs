@@ -38,6 +38,6 @@ public class AudioVisualizerRuntime : MonoBehaviour
 
     private void LateUpdate()
     {
-        _system.Update(_fft, _fractal, _tunnel, _ship);
+        _system.UpdateAudio(_fft, _fractal, _tunnel, _ship);
     }
 }

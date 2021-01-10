@@ -1,5 +1,6 @@
 using System;
 using Ktyl.Util;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class MovePlayer : MonoBehaviour
     [SerializeField] private RectOffset extents;
     [SerializeField] private float lerpAmount = 0.95f;
     [SerializeField] private SerialFloat horizontalInput;
+    [SerializeField] private SerialFloat horizontalPosition;
     
     private PlayerInput _input;
     
@@ -44,16 +46,30 @@ public class MovePlayer : MonoBehaviour
         _input.Default.Move.performed -= DoMove;
     }
 
+    private float _x;
+    
     private void Update()
     {
         _transform.localPosition += (Vector3) _currentInput * speed * Time.deltaTime;
+
+        var w = Mathf.Abs(extents.right - extents.left);
+        var x = _transform.localPosition.x;
+        if (x > extents.right)
+        {
+            x -= w;
+        }
+        else if (x < extents.left)
+        {
+            x += w;
+        }
         
         _transform.localPosition = new Vector3(
-            Mathf.Clamp(_transform.localPosition.x, extents.left, extents.right),
+            x,
             _yPos,
             _zPos);
         
         horizontalInput.Value = _currentInput.x;
+        horizontalPosition.Value = _transform.localPosition.x;
     }
 
     private void DoMove(InputAction.CallbackContext context)
