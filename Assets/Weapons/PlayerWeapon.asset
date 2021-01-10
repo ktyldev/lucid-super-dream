@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bc932693ed0a470d9cf39b1c3168afb, type: 3}
   m_Name: PlayerWeapon
   m_EditorClassIdentifier: 
-  fireRate: 0.05
+  fireRate: 0.025
   bulletSpeed:
     m_Mode: 0
     m_CurveMultiplier: 1
@@ -106,20 +106,20 @@ MonoBehaviour:
     m_Bits: 128
   accuracy: 2
   zone:
-    numToSpawn: 1
+    numToSpawn: 2
     offset: {x: 0, y: 0, z: 0}
-    spawnType: 0
+    spawnType: 1
     spawnDir: 0
     spawnPlane: 1
-    width: 0
+    width: 1.5
     height: 0
     surfaceOnly: 1
     evenDistribution: 1
-    numSides: 3
+    numSides: 2
     numPerSide: 5
     flipVertical: 1
-    radius: 1.25
-    arc: 360
+    radius: 5.47
+    arc: 82
     composite: []
   manualFire: 0
   behaviour: {fileID: 11400000, guid: 20de5bc0e86bc4037a85f6c46356a227, type: 2}

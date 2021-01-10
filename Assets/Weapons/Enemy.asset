@@ -108,17 +108,17 @@ MonoBehaviour:
   zone:
     numToSpawn: 10
     offset: {x: 0, y: 0, z: 0}
-    spawnType: 0
+    spawnType: 2
     spawnDir: 0
     spawnPlane: 1
     width: 0
     height: 0
-    surfaceOnly: 0
+    surfaceOnly: 1
     evenDistribution: 0
-    numSides: 5
-    numPerSide: 10
+    numSides: 3
+    numPerSide: 5
     flipVertical: 0
-    radius: 10
+    radius: 5
     arc: 360
     composite: []
   manualFire: 1

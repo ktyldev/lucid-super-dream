@@ -256,8 +256,8 @@ public class Weapon : ScriptableObject
        {
            var b = _bulletTransforms[i];
            if (b == null) continue;
-           Gizmos.DrawSphere(b.position, b.localScale.x/2f * bulletSize.EvaluateMinMaxCurve());
-           Gizmos.DrawSphere(_bullets[i].PrevPos, b.localScale.x/2f * bulletSize.EvaluateMinMaxCurve());
+           Gizmos.DrawSphere(b.position, b.localScale.x/2f );
+           Gizmos.DrawSphere(_bullets[i].PrevPos, b.localScale.x/2f );
            Gizmos.DrawLine(b.position, _bullets[i].PrevPos);
            
        }

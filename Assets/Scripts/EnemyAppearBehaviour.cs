@@ -5,14 +5,18 @@ using UnityEngine;
 [CreateAssetMenu]
 public class EnemyAppearBehaviour : BaseBulletBehaviour
 {
-    [SerializeField] private float scaleUpDuration = 0.3f;
-    [SerializeField] private float scaleUpDelay = 0.2f;
+    [SerializeField] private float scaleUpOverBeats = 1;
 
+    private static AudioBeatManager _audio;
+    
     public override void DoBehaviour(Transform bullet, float size, Vector3 pos)
     {
+        if (_audio == null)
+            _audio = FindObjectOfType<AudioBeatManager>();
+        
         bullet.localScale = Vector3.zero;
         bullet.localPosition = pos;
-        DOTween.Sequence()
-            .Insert(scaleUpDelay, bullet.DOScale(Vector3.one * size, scaleUpDuration).SetEase(Ease.OutQuint));
+        
+        bullet.DOScale(Vector3.one * size, _audio.TimeBetweenBeats * scaleUpOverBeats).SetEase(Ease.OutQuint);
     }
 }
