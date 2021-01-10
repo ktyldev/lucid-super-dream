@@ -7,6 +7,7 @@ public class DisableOnDeath : MonoBehaviour
 {
     private EntityHealth _health;
     private Renderer _renderer;
+    private Collider _collider;
     
     private Color _color1;
     private Color _color2;
@@ -21,6 +22,7 @@ public class DisableOnDeath : MonoBehaviour
     {
         _health = GetComponent<EntityHealth>();
         _renderer = GetComponentInChildren<Renderer>();
+        _collider = GetComponentInChildren<Collider>();
         
         _color1 = _renderer.material.GetColor(Color1);
         _color2 = _renderer.material.GetColor(Color2);
@@ -29,7 +31,7 @@ public class DisableOnDeath : MonoBehaviour
     private void OnEnable()
     {
         _health.Die += Die;
-
+        _collider.enabled = true;
         _renderer.material.SetColor(Color1, _color1);
         _renderer.material.SetColor(Color2, _color2);
     }
@@ -43,7 +45,7 @@ public class DisableOnDeath : MonoBehaviour
     {
         var oldName = gameObject.name;
         gameObject.name = "disabled";
-
+        _collider.enabled = false;
         float x = 0;
         DOTween.To(
             () => x,

@@ -116,7 +116,7 @@ MonoBehaviour:
     surfaceOnly: 1
     evenDistribution: 0
     numSides: 3
-    numPerSide: 5
+    numPerSide: 10
     flipVertical: 0
     radius: 5
     arc: 360

@@ -234,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186457103}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: -2, z: 100}
+  m_LocalPosition: {x: 0, y: -2, z: 200}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1016,6 +1016,7 @@ GameObject:
   - component: {fileID: 1330494724}
   - component: {fileID: 1330494723}
   - component: {fileID: 1330494726}
+  - component: {fileID: 1330494725}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -1062,7 +1063,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1,234,567,898,765,432
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0f0f54895994248b0bf34c4b4d27beef, type: 2}
   m_sharedMaterial: {fileID: -3347474280721358513, guid: 0f0f54895994248b0bf34c4b4d27beef, type: 2}
@@ -1139,6 +1140,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1330494721}
   m_CullTransparentMesh: 1
+--- !u!114 &1330494725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1330494721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3da04f2795dd4afe8551debe01be4561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1330494726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1153,6 +1166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeSince: {fileID: 11400000, guid: 8f05f93192443bc42b8523048bde0dc4, type: 2}
   scale: 0.25
+  ySquish: -0.15
+  characterSpacing: 10
 --- !u!1 &1395215960
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,6 +1421,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
+      propertyPath: bpm
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
       propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

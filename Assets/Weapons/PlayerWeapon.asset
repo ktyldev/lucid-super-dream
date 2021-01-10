@@ -106,12 +106,12 @@ MonoBehaviour:
     m_Bits: 128
   accuracy: 2
   zone:
-    numToSpawn: 2
+    numToSpawn: 4
     offset: {x: 0, y: 0, z: 0}
     spawnType: 1
     spawnDir: 0
     spawnPlane: 1
-    width: 1.5
+    width: 0.75
     height: 0
     surfaceOnly: 1
     evenDistribution: 1
