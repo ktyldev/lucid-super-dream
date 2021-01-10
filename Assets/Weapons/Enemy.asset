@@ -65,7 +65,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_ConstantMin: 20
-    m_ConstantMax: 30
+    m_ConstantMax: 60
   bulletLifetime:
     m_Mode: 0
     m_CurveMultiplier: 0
@@ -108,14 +108,14 @@ MonoBehaviour:
   zone:
     numToSpawn: 10
     offset: {x: 0, y: 0, z: 0}
-    spawnType: 0
+    spawnType: 2
     spawnDir: 0
     spawnPlane: 1
     width: 0
     height: 0
     surfaceOnly: 0
     evenDistribution: 0
-    numSides: 5
+    numSides: 3
     numPerSide: 10
     flipVertical: 0
     radius: 10

@@ -1,17 +1,17 @@
 using System;
 using UnityEngine;
 using UnityEngine.Scripting;
+using Random = UnityEngine.Random;
 
 public class BeatSpawner : ShootInputBase
 {
-    [SerializeField] private int pauseOnBeat;
-    [SerializeField] private int pauseLengthInBeats;
-    [SerializeField] private int beatOffset;
+    [SerializeField] private int spawnOnBeat = 2;
+    [SerializeField] private float xMin = -10;
+    [SerializeField] private float xMax = 10;
     
     private AudioBeatManager _audio;
     
     private bool _shoot;
-    private bool _isPaused = false;
 
     private void Awake()
     {
@@ -20,13 +20,9 @@ public class BeatSpawner : ShootInputBase
 
     public void OnBeat(int beat)
     {
-        if ((beat + beatOffset) % pauseOnBeat == 0)
-            _isPaused = true;
-
-        if ((beat + beatOffset + pauseLengthInBeats) % pauseOnBeat == 0)
-            _isPaused = false;
-        
-        _shoot = !_isPaused;
+        _shoot = beat % spawnOnBeat == 0;
+        if (_shoot)
+            transform.position = new Vector3(Mathf.Lerp(xMin, xMax, Mathf.Sin(beat)), transform.position.y, transform.position.z);
     }
 
     public override bool IsShooting()

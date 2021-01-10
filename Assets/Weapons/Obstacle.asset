@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc932693ed0a470d9cf39b1c3168afb, type: 3}
-  m_Name: PlayerWeapon
+  m_Name: Obstacle
   m_EditorClassIdentifier: 
-  fireRate: 0.025
+  fireRate: 3
   bulletSpeed:
     m_Mode: 0
     m_CurveMultiplier: 1
@@ -64,10 +64,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 60
+    m_ConstantMin: 20
     m_ConstantMax: 60
   bulletLifetime:
-    m_Mode: 3
+    m_Mode: 0
     m_CurveMultiplier: 0
     m_CurveMin:
       serializedVersion: 2
@@ -81,10 +81,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 1.25
-    m_ConstantMax: 1.5
+    m_ConstantMin: 15
+    m_ConstantMax: 5
   bulletSize:
-    m_Mode: 3
+    m_Mode: 0
     m_CurveMultiplier: 0
     m_CurveMin:
       serializedVersion: 2
@@ -98,28 +98,28 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 0.1
-    m_ConstantMax: 0.4
+    m_ConstantMin: 0
+    m_ConstantMax: 3
   damage: 1
   collidesWith:
     serializedVersion: 2
-    m_Bits: 128
-  accuracy: 2
+    m_Bits: 64
+  accuracy: 0
   zone:
-    numToSpawn: 4
+    numToSpawn: 1
     offset: {x: 0, y: 0, z: 0}
-    spawnType: 1
+    spawnType: 0
     spawnDir: 0
     spawnPlane: 1
-    width: 0.75
+    width: 0
     height: 0
     surfaceOnly: 1
     evenDistribution: 1
-    numSides: 2
-    numPerSide: 5
-    flipVertical: 1
-    radius: 5.47
-    arc: 82
+    numSides: 3
+    numPerSide: 10
+    flipVertical: 0
+    radius: 0
+    arc: 360
     composite: []
-  manualFire: 0
-  behaviour: {fileID: 11400000, guid: 20de5bc0e86bc4037a85f6c46356a227, type: 2}
+  manualFire: 1
+  behaviour: {fileID: 11400000, guid: bb1cb2a77c68c42d4900953d18b23a49, type: 2}
