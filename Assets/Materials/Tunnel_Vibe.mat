@@ -102,13 +102,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
-    - _BarsWeight: 0
+    - _BarsWeight: 1
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
-    - _CoreRadius: 1
-    - _CoreThiccness: 1
+    - _CoreRadius: 0.01
+    - _CoreThiccness: 0.15
+    - _CoreYOffset: -0.03
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1
@@ -120,10 +121,11 @@ Material:
     - _FractalPower: 1
     - _FractalRotateSpeed: 20
     - _FractalScale: 6
-    - _FractalWeight: 0
+    - _FractalWeight: 0.2
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _GroundMaskAngle: 1
     - _GroundWeight: 1
     - _Intensity: 1
     - _Metallic: 0
@@ -138,23 +140,29 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ShakeStrength: 0
+    - _SkyWeight: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StarsWeight: 0.05
+    - _StarsWeight: 1
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BackgroundColor: {r: 0.09794411, g: 0.27564344, b: 0.2924528, a: 0}
+    - _BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+    - _BarsColor: {r: 0, g: 2.1185474, b: 1.6637807, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CircleColor: {r: 1, g: 1, b: 1, a: 1}
+    - _CloudColor: {r: 0.21092917, g: 0.42653084, b: 0.5660378, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CoreColor: {r: 1.2156863, g: 1.4745098, b: 2, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FractalColor: {r: 1.3876811, g: 1.0683917, b: 2.3455496, a: 1}
-    - _GroundColor: {r: 1, g: 1, b: 1, a: 1}
-    - _NebulaColor1: {r: 0, g: 0.67775345, b: 1, a: 1}
-    - _NebulaColor2: {r: 0.54217625, g: 0.25, b: 1, a: 1}
+    - _FractalColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GroundColor: {r: 1.7207954, g: 0.47749817, b: 0.47749817, a: 1}
+    - _NebulaColor1: {r: 1, g: 1, b: 1, a: 1}
+    - _NebulaColor2: {r: 1, g: 1, b: 1, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _StarsColor: {r: 0.21698111, g: 0.09922791, b: 0.035822347, a: 1}
+    - _UiColor: {r: 1.1486983, g: 0.9915651, b: 1.0034841, a: 1}
   m_BuildTextureStacks: []

@@ -6,8 +6,9 @@ public class AudioVisualizerRuntime : MonoBehaviour
 {
     [SerializeField] private Renderer _ship;
     [SerializeField] private Renderer _fractal;
-    [SerializeField] private Renderer _tunnel;
+    // [SerializeField] private Renderer _tunnel;
     [SerializeField] private AudioVisualizer _system;
+    [SerializeField] private TunnelController _tunnel;
     [SerializeField] private AccessibilityOptions _accessibility;
     
     // https://qa.fmod.com/t/getting-spectrum-of-master-channel-in-unity/12579/2
@@ -21,7 +22,7 @@ public class AudioVisualizerRuntime : MonoBehaviour
     {
         // pick correct materials for accessibility
         // _ship.material = _accessibility.Intensity.Ship;
-        _tunnel.material = new Material(_accessibility.Intensity.Tunnel);
+        // _tunnel.material = new Material(_accessibility.Intensity.Tunnel);
     }
 
     private void Start()
@@ -32,12 +33,11 @@ public class AudioVisualizerRuntime : MonoBehaviour
         RuntimeManager.CoreSystem.getMasterChannelGroup(out var channelGroup);
         channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.HEAD, _fft);
 
-        
-        _system.Initialise(_fractal.material, _tunnel.material, _ship.material);
+        _system.Initialise(_fractal.material, _tunnel.Active.material, _ship.material);
     }
 
     private void LateUpdate()
     {
-        _system.UpdateAudio(_fft, _fractal, _tunnel, _ship);
+        _system.UpdateAudio(_fft, _fractal, _tunnel.Active, _ship);
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d86361ffc5ae478d9e976629c5d651bd, type: 3}
   m_Name: Camera Shake Intensity
   m_EditorClassIdentifier: 
-  _initialValue: 0.5
+  _initialValue: 0.35
   _readOnly: 1
