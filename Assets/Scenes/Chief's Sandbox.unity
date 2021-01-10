@@ -275,8 +275,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnOnBeat: 1
-  xMin: -5
-  xMax: 5
+  xMin: -10
+  xMax: 10
 --- !u!114 &531937975 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5076175860835241000, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
