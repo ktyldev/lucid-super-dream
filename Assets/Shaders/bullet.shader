@@ -61,11 +61,6 @@ Shader "custom/bullet"
             float _Alpha;
             float _PulseIntensity;
             
-            float _TrackWidth;
-            float _PlayerXPos;
-            
-            float _DistanceToNextBeat;
-            float _DistanceFromLastBeat;
 
             // float _VertexScale;
             // float _FadeStrength;
@@ -78,6 +73,11 @@ Shader "custom/bullet"
             SAMPLER(sampler_NoiseMap);
 
             CBUFFER_START(UnityPerMaterial)
+                float _DistanceToNextBeat;
+                float _DistanceFromLastBeat;
+                float _TrackWidth;
+                float _PlayerXPos;
+            
                 // The following line declares the _BaseMap_ST variable, so that you
                 // can use the _BaseMap variable in the fragment shader. The _ST 
                 // suffix is necessary for the tiling and offset function to work.
@@ -103,7 +103,8 @@ Shader "custom/bullet"
                 wpos = float3(cos(a)*r,sin(a)*r, wpos.z);
                 
                 vpos = TransformWorldToObject(wpos);
-                
+
+                OUT.normal = IN.normal;
                 OUT.wpos = wpos;
                 OUT.positionHCS = TransformObjectToHClip(vpos);
                 // The TRANSFORM_TEX macro performs the tiling and offset
@@ -112,16 +113,16 @@ Shader "custom/bullet"
                 return OUT;
             }
 
-            half4 frag(Varyings IN) : SV_Target
+            float4 frag(Varyings IN) : SV_Target
             {
                 // calculate pixel
-                float2 res = _ScreenParams;
+                float2 res = _ScreenParams.xy;
                 float2 p = -1.0+2.0*IN.positionHCS.xy/res.xy;
 
                 float2 toCentre = TransformObjectToWorld(-IN.wpos).xy;
                 toCentre = normalize(toCentre);
 
-                float t = dot(IN.normal, toCentre) * 0.5 + 0.5;
+                float t = dot(IN.normal.xy, toCentre) * 0.5 + 0.5;
                 
                 // float t = dot(IN.normal, float3(0,1,0)) * 0.5 + 0.5;
                 
