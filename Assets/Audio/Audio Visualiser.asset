@@ -16,7 +16,7 @@ MonoBehaviour:
   _distanceSinceLastBeat: {fileID: 11400000, guid: 8d22f3ed946820445adcc586d2cc6e5a, type: 2}
   _fractalAnimations:
   - name: _Fractality
-    multiplier: 100
+    multiplier: 1000
     channel: 0
     sample: 525
   _tunnelAnimations:
@@ -32,6 +32,10 @@ MonoBehaviour:
     multiplier: -500
     channel: 1
     sample: 525
+  - name: _SkyWeight
+    multiplier: -500
+    channel: 1
+    sample: 400
   _shipAnimations:
   - name: _VertexScale
     multiplier: 3703.2

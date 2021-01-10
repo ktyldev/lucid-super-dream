@@ -102,7 +102,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
-    - _BarsWeight: 1
+    - _BarsWeight: 2.04
     - _Blend: 0
     - _BumpScale: 1
     - _ClearCoatMask: 0
@@ -120,17 +120,17 @@ Material:
     - _FractalPower: 1
     - _FractalRotateSpeed: 20
     - _FractalScale: 6
-    - _FractalWeight: 0.29
+    - _FractalWeight: 0.88
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _GroundMaskAngle: 2.61
-    - _GroundWeight: 1
+    - _GroundWeight: 0.79
     - _Intensity: 1
     - _Metallic: 0
     - _Nebula1Power: 3.06
     - _Nebula2Power: 3.46
-    - _NebulaWeight: 0.25
+    - _NebulaWeight: 1
     - _OcclusionStrength: 1
     - _OuterCircleRadius: 0.5
     - _OuterCircleThickness: 0.1
@@ -139,25 +139,26 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _ShakeStrength: 0
+    - _SkyWeight: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
-    - _StarsWeight: 0.1
+    - _StarsWeight: 0.5
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BackgroundColor: {r: 0, g: 0, b: 0, a: 1}
+    - _BackgroundColor: {r: 0.14150941, g: 0, b: 0, a: 1}
     - _BarsColor: {r: 0.007843138, g: 0.45490196, b: 0.7490196, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _CircleColor: {r: 0, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CoreColor: {r: 0.70987976, g: 1.0648196, b: 2.1185474, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FractalColor: {r: 4.18079, g: 0, b: 0.6094301, a: 1}
-    - _GroundColor: {r: 0.45868373, g: 3.3127158, b: 0, a: 1}
-    - _NebulaColor1: {r: 0, g: 0.67775345, b: 1, a: 1}
-    - _NebulaColor2: {r: 0.54217625, g: 0.25, b: 1, a: 1}
+    - _FractalColor: {r: 0.7490196, g: 0, b: 0.10980392, a: 1}
+    - _GroundColor: {r: 0.8553404, g: 1.5620759, b: 4.422736, a: 1}
+    - _NebulaColor1: {r: 0, g: 0.16862746, b: 0.2509804, a: 1}
+    - _NebulaColor2: {r: 0.13529412, g: 0.0627451, b: 0.2509804, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

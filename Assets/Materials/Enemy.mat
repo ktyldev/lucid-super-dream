@@ -108,15 +108,17 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
+    - _TrackWidth: 20
     - _VertexDistortion: 0.1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 0.7735849, g: 0.23718406, b: 0.58527553, a: 1}
-    - _Color2: {r: 0.9622642, g: 0.031772893, b: 0.041073136, a: 1}
+    - _Color1: {r: 0, g: 0.7880776, b: 1, a: 1}
+    - _Color2: {r: 0, g: 0.9716981, b: 0.014814194, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _FarColor: {r: 0.8784709, g: 0, b: 1, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &1271807303275379478

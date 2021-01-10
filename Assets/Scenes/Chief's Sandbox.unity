@@ -506,7 +506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1767.2549
+      value: 1759.5208
       objectReference: {fileID: 0}
     - target: {fileID: 3397488660842926093, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: m_LocalScale.y
@@ -576,6 +576,10 @@ PrefabInstance:
       propertyPath: _playerXPos
       value: 
       objectReference: {fileID: 11400000, guid: 25280515e18c66c44827faf0cb01ca42, type: 2}
+    - target: {fileID: 5076175860835241000, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
+      propertyPath: _playerXMove
+      value: 
+      objectReference: {fileID: 11400000, guid: 7371e84b7c82f4631a96ac1c00b55fa0, type: 2}
     - target: {fileID: 5076175860835241000, guid: 1f82f952c53fc7449a0091cf29ba3def, type: 3}
       propertyPath: _anim.m_Curve.Array.size
       value: 3
