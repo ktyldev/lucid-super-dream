@@ -80,6 +80,8 @@ public class AudioBeatManager : MonoBehaviour, IAudioBeatManager
             _timer = timeSinceLastBeat;
             
             ++_currentBeat;
+            if (Time.timeScale == 0)
+                return;
             OnBeat?.Invoke(_currentBeat);
             OnBeatEvent?.Invoke(_currentBeat);
         }

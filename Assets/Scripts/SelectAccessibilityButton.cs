@@ -8,7 +8,6 @@ public class SelectAccessibilityButton : MonoBehaviour
     
     public void Select()
     {
-
         options.Mode = mode;
         tunnel.Reset();
     }

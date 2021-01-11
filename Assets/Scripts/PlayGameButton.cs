@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class PlayGameButton : MonoBehaviour, ISubmitHandler
+public class PlayGameButton : MonoBehaviour
 {
     [SerializeField] private string levelName;
     [SerializeField] private CanvasGroup group;
     [SerializeField] private CanvasGroup thisGroup;
 
-    public void OnSubmit(BaseEventData eventData)
+    public void Submit()
     {
         var asyncOp = SceneManager.LoadSceneAsync(levelName);
         asyncOp.allowSceneActivation = false;

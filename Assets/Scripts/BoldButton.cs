@@ -22,8 +22,6 @@ public class BoldButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
          _currentBold?.UnBoldText();
          _currentBold = this;
         _text.fontStyle = FontStyles.Bold;
-
-        Select?.Invoke();
     }
 
     private void UnBoldText()
@@ -49,5 +47,10 @@ public class BoldButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnDeselect(BaseEventData eventData)
     {
         UnBoldText();
+    }
+
+    public void Submit()
+    {
+        Select?.Invoke();
     }
 }
