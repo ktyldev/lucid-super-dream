@@ -177,6 +177,7 @@ GameObject:
   m_Component:
   - component: {fileID: 84273095}
   - component: {fileID: 84273094}
+  - component: {fileID: 84273096}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -221,6 +222,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &84273096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84273093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 565df9595af1e6e4a9547067e1d23b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _base: 1
+  _perBeatIncrease: 0.005
 --- !u!1 &186457103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1614,10 +1629,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
       propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
       propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
+      propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
@@ -1629,7 +1648,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 532372216}
     - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
+      propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 84273096}
+    - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
       propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
+      propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
@@ -1637,11 +1664,23 @@ PrefabInstance:
       value: OnBeat
       objectReference: {fileID: 0}
     - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
+      propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: OnBeat
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
       propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
       value: BeatSpawner, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
+      propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
+      value: IncreaseDifficultyOverTime, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
       propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2145967175348613560, guid: 88246464365fd0745b75edfcff208598, type: 3}
+      propertyPath: _onBeat.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2145967175348613561, guid: 88246464365fd0745b75edfcff208598, type: 3}

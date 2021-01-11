@@ -118,7 +118,23 @@ MonoBehaviour:
     numSides: 3
     numPerSide: 10
     flipVertical: 0
-    radius: 5
+    radius:
+      m_Mode: 3
+      m_CurveMultiplier: 0
+      m_CurveMin:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_CurveMax:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_ConstantMin: 3
+      m_ConstantMax: 9
     arc: 360
     composite: []
   manualFire: 1

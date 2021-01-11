@@ -169,6 +169,7 @@ public class Weapon : ScriptableObject
         
         // if it's inactive, we haven't hit anything
         if (!instance.gameObject.activeSelf) return false;
+        if (instance.gameObject.name == "disabled") return false;
         
         // use the non allocating version so we don't have to allocate memory for every bullet
         numHits = Physics.OverlapCapsuleNonAlloc(prevPos, instance.position, size/2f, _results, collidesWith, QueryTriggerInteraction.Collide);

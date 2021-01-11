@@ -99,7 +99,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     m_ConstantMin: 0
-    m_ConstantMax: 1
+    m_ConstantMax: 0.1
   damage: 1
   collidesWith:
     serializedVersion: 2
@@ -116,9 +116,25 @@ MonoBehaviour:
     surfaceOnly: 0
     evenDistribution: 0
     numSides: 3
-    numPerSide: 10
+    numPerSide: 5
     flipVertical: 0
-    radius: 10
+    radius:
+      m_Mode: 3
+      m_CurveMultiplier: 0
+      m_CurveMin:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_CurveMax:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_ConstantMin: 7
+      m_ConstantMax: 13
     arc: 360
     composite: []
   manualFire: 1

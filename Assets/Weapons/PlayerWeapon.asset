@@ -81,10 +81,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 1.25
-    m_ConstantMax: 1.5
+    m_ConstantMin: 0.5
+    m_ConstantMax: 0.75
   bulletSize:
-    m_Mode: 3
+    m_Mode: 0
     m_CurveMultiplier: 0
     m_CurveMin:
       serializedVersion: 2
@@ -98,8 +98,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    m_ConstantMin: 0.1
-    m_ConstantMax: 0.4
+    m_ConstantMin: 1
+    m_ConstantMax: 3
   damage: 1
   collidesWith:
     serializedVersion: 2
@@ -111,7 +111,7 @@ MonoBehaviour:
     spawnType: 1
     spawnDir: 0
     spawnPlane: 1
-    width: 0.75
+    width: 1.5
     height: 0
     surfaceOnly: 1
     evenDistribution: 1

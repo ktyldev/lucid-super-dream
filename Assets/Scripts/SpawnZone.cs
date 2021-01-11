@@ -4,6 +4,7 @@ using NUnit.Framework.Constraints;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Utils;
 using Random = UnityEngine.Random;
 
 namespace Weapons.Spawning
@@ -32,7 +33,7 @@ namespace Weapons.Spawning
         [SerializeField] private int numPerSide;
         [SerializeField] private bool flipVertical;
         
-        [SerializeField] private float radius;
+        [SerializeField] private ParticleSystem.MinMaxCurve radius;
         [SerializeField, Range(0, 360)] private float arc;
 
         [SerializeField] private SpawnZone[] composite;
@@ -89,7 +90,7 @@ namespace Weapons.Spawning
                     if (flipVertical)
                         point.y = 1 - point.y;
                     
-                    point *= radius;
+                    point *= radius.EvaluateMinMaxCurve();
                     
                     if (spawnPlane == SpawnPlane.XZ)
                     {
@@ -168,7 +169,7 @@ namespace Weapons.Spawning
                     dir = Random.insideUnitCircle.normalized;
 
                 
-                onGetPoint((point * radius) + offset, dir);
+                onGetPoint((point * radius.EvaluateMinMaxCurve()) + offset, dir);
             }
         }
         

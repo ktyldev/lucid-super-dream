@@ -70,6 +70,7 @@ Shader "custom/obstacle"
             float _Alpha;
             float _PulseIntensity;
 
+            float _Difficulty;
             float _SpeedMultiplier;
             float _RadiusWithDistance;
             
@@ -227,6 +228,7 @@ Shader "custom/obstacle"
                 float boundsStrength = 5.0*_Intensity;
                 float bounce = (_SpeedMultiplier+boundsStrength*(_DistanceToNextBeat*_DistanceSinceLastBeat));
                 wpos.z *= bounce;
+                wpos.z *= _Difficulty;
                 
                 vpos = TransformWorldToObject(wpos);
 

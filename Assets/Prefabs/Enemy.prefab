@@ -47,6 +47,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xMin: -10.1
   xMax: 10.1
+--- !u!114 &1858863165099212332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1738226812227614583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea3f51bb4cd6c8146a185362df2fe451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speedRange: {x: -10, y: 10}
+  _xBounds: {x: -10, y: 10}
 --- !u!1 &7094929575626237127
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,16 +212,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xMin: -10.1
   xMax: 10.1
---- !u!114 &1858863165099212332
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1738226812227614583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea3f51bb4cd6c8146a185362df2fe451, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _speedRange: {x: -5, y: 5}

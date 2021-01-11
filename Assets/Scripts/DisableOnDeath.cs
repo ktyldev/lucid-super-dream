@@ -45,7 +45,7 @@ public class DisableOnDeath : MonoBehaviour
     private void Die()
     {
         var oldName = gameObject.name;
-        gameObject.name = "disabled";
+        gameObject.transform.parent.name = "disabled";
         _collider.enabled = false;
         
         float duration = 0.4f;

@@ -68,6 +68,7 @@ Shader "custom/enemy"
             float4 _FarColor;
             float _Alpha;
 
+            float _Difficulty;
             float _SpeedMultiplier;
             float _RadiusWithDistance;
             
@@ -143,8 +144,9 @@ Shader "custom/enemy"
                 wpos.y += radius;
 
                 float bounceStrength=5.0*_Intensity;
-                float bounce = (_SpeedMultiplier+bounceStrength*(_DistanceToNextBeat*_DistanceSinceLastBeat));
+                float bounce = _SpeedMultiplier+bounceStrength*(_DistanceToNextBeat*_DistanceSinceLastBeat);
                 wpos.z *= bounce;
+                wpos.z *= _Difficulty;
                 // wpos.z *= max(1, (wpos.z-6)* _SpeedMultiplier);
                 vpos = TransformWorldToObject(wpos);
 
@@ -182,8 +184,10 @@ Shader "custom/enemy"
                 // float4 c = float4(lerp(_Color1, _Color2, t).xyz, _Alpha);
                 float4 c = _Color1;
                 c = lerp(_Color1, _Color2, length(p));
-                
+
                 c = lerp(c, _FarColor, normalised * _Intensity);
+                float4 nc = normalize(c);
+                c = lerp(nc, c, clamp(_Intensity + 0.02, 0, 1));    
 
                 // float distanceAhead = IN.wpos.z - 6;
                 // float ca = clamp(distanceAhead * 0.1,0,1);
