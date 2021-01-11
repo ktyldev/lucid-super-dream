@@ -29,6 +29,8 @@ public class EntityLives : MonoBehaviour
 
     private void Die()
     {
+        FMODUnity.RuntimeManager.PlayOneShot("event:/hit");
+        
         --lives;
         if (lives > 0)
         {
