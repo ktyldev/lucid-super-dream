@@ -81,6 +81,7 @@ Shader "custom/enemy"
             float _PulseIntensity;
 
             float _BaseTubeRadius;
+            float _Intensity;
             
             // float _VertexScale;
             // float _FadeStrength;
@@ -122,49 +123,11 @@ Shader "custom/enemy"
                 float wpz = mo_wpos.z;
                 float r = length(radius) + wpz*wpz*wpz*_RadiusWithDistance;
                 
-                // compress horiztonally
-                // vpos.x = vpos.x * _HorizontalScale;
-                // vpos.y = vpos.y * _VerticalScale * 1.0-(r-radius);
-                // vpos = mul(UNITY_MATRIX_P,
-                //     mul(UNITY_MATRIX_MV, float4(0,0,0,1))
-                //     + float4(vpos.x, vpos.y, 0,0)
-                //     + float4(1, 1,1,1));
-
-                // recalculate wpos with updated vpos
-                // wpos = TransformObjectToWorld(vpos);
-
-                // matrix m = GetObjectToWorldMatrix();
-                
-                //float d = 1.0+length(wpos)*0.5;
-                //float2 uv = wpos.zx;
-                // float noise = SAMPLE_TEXTURE2D_LOD(_NoiseMap, sampler_NoiseMap, uv, 0) - 0.5;
-                // vpos += _VertexScale*float3(0,0,5)*d;
-                // vpos += sin(180)*sin(1800)*float3(0,0,5)*d;
-                // noise *= d*d * 0.1;
-                // vpos *= lerp (0.9,1.1,noise);
-
-                // float3 owpos = TransformObjectToWorld(float3(0,0,0));
-                
-                // calculate position on circle
-                
-                // float3 object_origin = TransformObjectToWorld(float3(0,0,0));
-                // float r_origin = float
-                
-                // float wpz = abs(mo_wpos.z-6); // offset due to player position
-                // // wpz *= wpz;
-                // r += wpz*_RadiusWithDistance;
-                // mo_wpos.z *= _SpeedMultiplier;
-
                 float x = mo_wpos;
-                // float x = mo_wpos.x+vpos.x;
                 x -= _PlayerXPos;
-                // x += 0.5*PI;
                 
                 float a = 2*PI*(x/d);
                 a -= 0.5*PI;
-                // a *= (radius - r) * -1.0;
-
-                // vpos.y += 0.5*radius*cos(a);
                 
                 float3 wpos = float3(cos(a)*r,sin(a)*r,mo_wpos.z);
                 
@@ -178,7 +141,10 @@ Shader "custom/enemy"
                 wpos += float3(noise1, noise2, 0) * 2.0;
                 wpos += float3(vpos.xy,0);
                 wpos.y += radius;
-                wpos.z *= (_SpeedMultiplier+5*(_DistanceToNextBeat*_DistanceSinceLastBeat));
+
+                float bounceStrength=5.0*_Intensity;
+                float bounce = (_SpeedMultiplier+bounceStrength*(_DistanceToNextBeat*_DistanceSinceLastBeat));
+                wpos.z *= bounce;
                 // wpos.z *= max(1, (wpos.z-6)* _SpeedMultiplier);
                 vpos = TransformWorldToObject(wpos);
 

@@ -71,7 +71,7 @@ public class TunnelController : MonoBehaviour
 
         var normalisedElapsed = elapsed / _duration;
 
-        var shake = Mathf.Max(_anim.Evaluate(normalisedElapsed), _baseCameraShake) * cameraShakeIntensity;
+        var shake = Mathf.Max(_anim.Evaluate(normalisedElapsed), _baseCameraShake) * _intensity;
         Shader.SetGlobalFloat("_CameraShake", shake);
     }
 

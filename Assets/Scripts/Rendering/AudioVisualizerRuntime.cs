@@ -34,6 +34,8 @@ public class AudioVisualizerRuntime : MonoBehaviour
         channelGroup.addDSP(FMOD.CHANNELCONTROL_DSP_INDEX.HEAD, _fft);
 
         _system.Initialise(_fractal.material, _tunnel.Active.material, _ship.material);
+
+        Shader.SetGlobalFloat("_Intensity", _accessibility.Intensity.Value);
     }
 
     private void LateUpdate()
