@@ -67,7 +67,6 @@ Shader "custom/enemy"
             float4 _Color2;
             float4 _FarColor;
             float _Alpha;
-            float _PulseIntensity;
 
             float _SpeedMultiplier;
             float _RadiusWithDistance;
@@ -79,6 +78,7 @@ Shader "custom/enemy"
             float _DistanceSinceLastBeat;
             
             float _BaseScale;
+            float _PulseIntensity;
 
             float _BaseTubeRadius;
             
