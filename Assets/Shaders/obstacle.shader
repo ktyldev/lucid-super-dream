@@ -33,7 +33,7 @@ Shader "custom/obstacle"
 
         Pass
         {
-//            Blend OneMinusDstColor OneMinusSrcAlpha
+            Blend OneMinusDstColor OneMinusSrcAlpha
 //            Blend SrcAlpha
             
             HLSLPROGRAM
@@ -259,8 +259,12 @@ Shader "custom/obstacle"
                 float normalised = IN.wpos.z/500.0;
                 // float4 c = float4(lerp(_Color1, _Color2, t).xyz, _Alpha);
                 float4 c = _Color1;
-                c *= tape_noise(IN.polar/0.00005);
-                c = lerp(c, _FarColor, _DistanceToNextBeat);
+                //c *= tape_noise(IN.polar/0.00005);
+                float noise = SAMPLE_TEXTURE2D(_NoiseMap, sampler_NoiseMap, IN.wpos.yz);
+                // c *= noise;
+                
+                c = lerp(c, _FarColor, _DistanceToNextBeat + noise);
+                c.a = 0.0;
                 
                 return c;
             }
