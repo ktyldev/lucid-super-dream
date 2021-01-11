@@ -95,6 +95,7 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _AlphaClip: 0
+    - _BaseScale: 0.5
     - _Blend: 0
     - _BumpScale: 1
     - _C: 0
@@ -114,7 +115,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _PulseIntensity: 1
+    - _PulseIntensity: 0
     - _QueueOffset: 0
     - _RadiusWithDistance: 0.00005
     - _ReceiveShadows: 1
@@ -132,7 +133,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color1: {r: 7.5717225, g: 6.7708673, b: 13.90576, a: 1}
+    - _Color1: {r: 0.3634766, g: 5.3403134, b: 0, a: 1}
     - _Color2: {r: 0.24509804, g: 0.3764706, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FarColor: {r: 1, g: 1, b: 1, a: 1}
