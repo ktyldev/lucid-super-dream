@@ -95,6 +95,7 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _AlphaClip: 0
+    - _BaseScale: 0.5
     - _Blend: 0
     - _BumpScale: 1
     - _C: 0
