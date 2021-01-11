@@ -11,6 +11,7 @@ public class TunnelController : MonoBehaviour
     [SerializeField] private AnimationCurve _anim;
     [SerializeField] private SerialFloat _playerXPos;
     [SerializeField] private SerialFloat _playerXMove;
+    [SerializeField] private SerialFloat _baseTubeRadius;
 
     [SerializeField] private AccessibilityOptions _accessibility;
     [SerializeField] private float _baseCameraShake;
@@ -26,6 +27,7 @@ public class TunnelController : MonoBehaviour
     private void Awake()
     {
         Shader.SetGlobalFloat("_CameraShake", 0);
+        Shader.SetGlobalFloat("_BaseTubeRadius", _baseTubeRadius);
     
         Debug.Log(_accessibility.Mode);
         switch (_accessibility.Mode)

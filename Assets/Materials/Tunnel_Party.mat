@@ -109,7 +109,7 @@ Material:
     - _ClearCoatSmoothness: 0
     - _CoreRadius: 0.025
     - _CoreThiccness: 0.5
-    - _CoreYOffset: -0.03
+    - _CoreYOffset: 0.28
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailAlbedoMapScale: 1

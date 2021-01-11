@@ -1,3 +1,4 @@
+using System.Net.Http;
 using DG.Tweening;
 using UnityEngine;
 using Weapons.Scripts;
@@ -46,24 +47,22 @@ public class DisableOnDeath : MonoBehaviour
         var oldName = gameObject.name;
         gameObject.name = "disabled";
         _collider.enabled = false;
+        
+        float duration = 0.4f;
         float x = 0;
         DOTween.To(
             () => x,
             t =>
             {
-                var c1 = Color.Lerp(_color1, Color.white, t);
-                var c2 = Color.Lerp(_color2, Color.white, t);
+                var c1 = Color.Lerp(_color1, Color.white*1000f, 1f-t);
+                var c2 = Color.Lerp(_color2, Color.white*1000f, 1f-t);
                 
                 _renderer.material.SetColor(Color1, c1);
-                _renderer.material.SetColor(Color2, c2);
-                _renderer.material.SetFloat(Alpha, 1.0f-t);
             },
             1.0f,
-            0.05f);
+            duration);
         
-        
-        
-        transform.DOScale(Vector3.one * 1.5f, 0.15f).SetEase(Ease.OutQuint).OnComplete(() =>
+        transform.DOScale(Vector3.one * 3.0f, duration).SetEase(Ease.OutQuint).OnComplete(() =>
         {
             gameObject.name = oldName;
             gameObject.SetActive(false);

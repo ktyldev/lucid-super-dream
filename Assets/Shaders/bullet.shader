@@ -60,7 +60,8 @@ Shader "custom/bullet"
             float4 _FarColor;
             float _Alpha;
             float _PulseIntensity;
-            
+
+            float _BaseTubeRadius;
 
             // float _VertexScale;
             // float _FadeStrength;

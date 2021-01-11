@@ -1,5 +1,5 @@
 // This shader draws a texture on the mesh.
-Shader "custom/enemy"
+Shader "custom/obstacle"
 {
     // The _BaseMap variable is visible in the Material's Inspector, as a field
     // called Base Map.
@@ -18,7 +18,8 @@ Shader "custom/enemy"
         _RadiusWithDistance("Radius with Distance", Float) = 0.003
         _SpeedMultiplier("Speed Multiplier", Float) = 2.0
         
-        _BaseScale("Base Scale", Float) = 1.0
+        _HorizontalScale("Horizontal Scale", Float) = 0.1
+        _VerticalScale("Vertical Scale", Float) = 10
         
         _M("M", Float) = 0.5
         _C("C", Float) = 0.0
@@ -78,7 +79,8 @@ Shader "custom/enemy"
             float _DistanceToNextBeat;
             float _DistanceSinceLastBeat;
             
-            float _BaseScale;
+            float _HorizontalScale;
+            float _VerticalScale;
 
             float _BaseTubeRadius;
             
@@ -100,6 +102,49 @@ Shader "custom/enemy"
                 float4 _NoiseMap_ST;
             CBUFFER_END
 
+                       //random hash
+            float4 hash42(float2 p) {
+
+                float4 p4 = frac(float4(p.xyxy) * float4(443.8975, 397.2973, 491.1871, 470.7827));
+                p4 += dot(p4.wzxy, p4 + 19.19);
+                return frac(float4(p4.x * p4.y, p4.x * p4.z, p4.y * p4.w, p4.x * p4.w));
+            }
+
+            float hash(float n) {
+                return frac(sin(n) * 43758.5453123);
+            }
+
+            float n(in float3 x) {
+                float3 p = floor(x);
+                float3 f = frac(x);
+                f = f * f * (3.0 - 2.0 * f);
+                float n = p.x + p.y * 57.0 + 113.0 * p.z;
+                float res = lerp(lerp(lerp(hash(n + 0.0), hash(n + 1.0), f.x),
+                    lerp(hash(n + 57.0), hash(n + 58.0), f.x), f.y),
+                    lerp(lerp(hash(n + 113.0), hash(n + 114.0), f.x),
+                        lerp(hash(n + 170.0), hash(n + 171.0), f.x), f.y), f.z);
+                return res;
+            }
+
+            //tape noise
+            float tape_noise(float2 p) {
+
+                float y = p.y;
+                float s = _Time.x + 200;
+
+                float v = (n(float3(y * .01 + s, 1., 1.0)) + .0)
+                    * (n(float3(y * .011 + 1000.0 + s, 1., 1.0)) + .0)
+                    * (n(float3(y * .51 + 421.0 + s, 1., 1.0)) + .0)
+                    ;
+
+                v *= hash42(float2(p.x + _Time.y + 200, p.y)).x + 2;
+
+
+                v = abs(pow(v + .3, 1.));
+                if (v < .5) v = 0.;  //threshold
+                return v;
+            }
+ 
             
             Varyings vert(Attributes IN)
             {
@@ -108,15 +153,14 @@ Shader "custom/enemy"
                 float d = _TrackWidth;
 
                 float3 vpos = IN.positionOS.xyz;
-                vpos*=2;
+                vpos*=3;
                 OUT.normal = IN.normal;
 
                 // position of the model's origin in world space
                 float3 mo_wpos = TransformObjectToWorld(float3(0,0,0));
-
-                float db = _DistanceSinceLastBeat;
-                float beat = db*db;
-                vpos *= _BaseScale+beat*_PulseIntensity;
+                
+                float beat = _DistanceToNextBeat*_DistanceToNextBeat;
+                vpos *= 1.0+beat*_PulseIntensity;
 
                 // float3 wpos = TransformObjectToWorld(vpos);
                 float wpz = mo_wpos.z;
@@ -137,7 +181,6 @@ Shader "custom/enemy"
                 
                 //float d = 1.0+length(wpos)*0.5;
                 //float2 uv = wpos.zx;
-                // float noise = SAMPLE_TEXTURE2D_LOD(_NoiseMap, sampler_NoiseMap, uv, 0) - 0.5;
                 // vpos += _VertexScale*float3(0,0,5)*d;
                 // vpos += sin(180)*sin(1800)*float3(0,0,5)*d;
                 // noise *= d*d * 0.1;
@@ -172,10 +215,11 @@ Shader "custom/enemy"
                 float y_p = vpos.x*sin(a)+vpos.y*cos(a);
                 vpos.x = x_p;
                 vpos.y = y_p;
-
+                
                 float noise1 = SAMPLE_TEXTURE2D_LOD(_NoiseMap, sampler_NoiseMap, wpos.yz, 0) - 0.5;
                 float noise2 = SAMPLE_TEXTURE2D_LOD(_NoiseMap, sampler_NoiseMap, wpos.xy, 0) - 0.5;
                 wpos += float3(noise1, noise2, 0) * 2.0;
+
                 wpos += float3(vpos.xy,0);
                 wpos.y += radius;
                 wpos.z *= (_SpeedMultiplier+5*(_DistanceToNextBeat*_DistanceSinceLastBeat));
@@ -212,19 +256,11 @@ Shader "custom/enemy"
                 
                 // float t = length(p);
                 // return lerp(_Color1,_Color2,t * _FadeStrength);
-                float normalised = IN.wpos.z/1000.0;
+                float normalised = IN.wpos.z/500.0;
                 // float4 c = float4(lerp(_Color1, _Color2, t).xyz, _Alpha);
                 float4 c = _Color1;
-                c = lerp(_Color1, _Color2, length(p));
-                
-                c = lerp(c, _FarColor, normalised);
-
-                // float distanceAhead = IN.wpos.z - 6;
-                // float ca = clamp(distanceAhead * 0.1,0,1);
-                // c.a = ca;
-                // c.a = clamp((IN.wpos.z-6)*1.0,0,1);
-                // c.a = clamp((1.0-IN.polar.r),0,1);
-                // c.a = clamp(1.0-normalised,0,1);
+                c *= tape_noise(IN.polar/0.00005);
+                c = lerp(c, _FarColor, _DistanceToNextBeat);
                 
                 return c;
             }

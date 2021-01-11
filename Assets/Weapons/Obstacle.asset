@@ -106,19 +106,19 @@ MonoBehaviour:
     m_Bits: 64
   accuracy: 0
   zone:
-    numToSpawn: 1
+    numToSpawn: 75
     offset: {x: 0, y: 0, z: 0}
     spawnType: 0
     spawnDir: 0
     spawnPlane: 1
-    width: 0
+    width: 10
     height: 0
-    surfaceOnly: 1
+    surfaceOnly: 0
     evenDistribution: 1
     numSides: 3
     numPerSide: 10
     flipVertical: 0
-    radius: 0
+    radius: 5
     arc: 360
     composite: []
   manualFire: 1

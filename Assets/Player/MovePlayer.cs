@@ -10,6 +10,7 @@ public class MovePlayer : MonoBehaviour
     [SerializeField] private float lerpAmount = 0.95f;
     [SerializeField] private SerialFloat horizontalInput;
     [SerializeField] private SerialFloat horizontalPosition;
+    [SerializeField] private SerialFloat zPosition;
     
     private PlayerInput _input;
     
@@ -67,6 +68,7 @@ public class MovePlayer : MonoBehaviour
         
         horizontalInput.Value = _currentInput.x;
         horizontalPosition.Value = _transform.localPosition.x;
+        zPosition.Value = transform.position.z;
     }
 
     private void DoMove(InputAction.CallbackContext context)

@@ -314,12 +314,13 @@ Shader "custom/tunnel"
                 float4 color = float4(0,0,0,0);
 
                 // precalc some stuff
+                float2 core_c = float2(0, _CoreYOffset);
                 float4 f = fractal1 + fractal2;
                 // float f = fractal2;
                 float4 g = ground(p, r, a);
                 // float g_mask = step(_GroundMaskAngle,g);
                 float4 n = nebula(r, a);
-                float4 s = stars(r, a);
+                float4 s = stars((length(core_c-p)), atan((core_c-p).y/(core_c-p).x));
                 float4 b = bars(r, p);
 
                 // fractal
@@ -369,7 +370,6 @@ Shader "custom/tunnel"
                 color = max(bars_color, color);
 
                 // core
-                float2 core_c = float2(0, _CoreYOffset);
                 float4 core_color = blurry_circle(p, core_c, _CoreRadius, _CoreThiccness);
                 core_color *= _CoreColor;
                 color = lerp(color, core_color, core_color);
