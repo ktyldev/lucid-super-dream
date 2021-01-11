@@ -1,6 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using FMOD;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Debug = UnityEngine.Debug;
 using PlayerInput = Input.PlayerInput;
 public class PlayerShootInput : ShootInputBase
 {
@@ -12,7 +16,7 @@ public class PlayerShootInput : ShootInputBase
     {
         _actions = new PlayerInput();
     }
-    
+
     private void OnEnable()
     {
         _actions.Enable();
@@ -25,6 +29,11 @@ public class PlayerShootInput : ShootInputBase
         _actions.Default.Shoot.performed -= Shoot;
     }
 
+    private void Start()
+    {
+        StartCoroutine(MakePewSounds());
+    }
+
     private void Shoot(InputAction.CallbackContext obj)
     {
         _isShooting = obj.ReadValueAsButton();
@@ -35,4 +44,19 @@ public class PlayerShootInput : ShootInputBase
         return _isShooting;
     }
 
+    private IEnumerator MakePewSounds()
+    {
+        var wait = new WaitForSeconds(0.02f);
+        
+        while (true)
+        {
+            if (_isShooting)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/shoot");
+            }
+            
+            yield return wait;
+        }
+    }
+    
 }
