@@ -23,10 +23,13 @@ public class TunnelController : MonoBehaviour
     public Renderer Active { get; private set; }
     
     private float _start = -1;
+    private static readonly int PlayerXMove = Shader.PropertyToID("_PlayerXMove");
+    private static readonly int PlayerXPos = Shader.PropertyToID("_PlayerXPos");
+    private static readonly int CameraShake = Shader.PropertyToID("_CameraShake");
 
     private void Awake()
     {
-        Shader.SetGlobalFloat("_CameraShake", 0);
+        Shader.SetGlobalFloat(CameraShake, 0);
         Shader.SetGlobalFloat("_BaseTubeRadius", _baseTubeRadius);
     
         Debug.Log(_accessibility.Mode);
@@ -58,13 +61,18 @@ public class TunnelController : MonoBehaviour
         }
     }
 
+    public void Reset()
+    {
+        Awake();
+    }
+
     void LateUpdate()
     {
         var cameraShakeIntensity = _intensity * _accessibility.Intensity.Value;
         
-        Shader.SetGlobalFloat("_PlayerXMove", _playerXMove);
-        Shader.SetGlobalFloat("_PlayerXPos", _playerXPos);
-        Shader.SetGlobalFloat("_CameraShake", _baseCameraShake * _distanceToNextBeat * cameraShakeIntensity);
+        Shader.SetGlobalFloat(PlayerXMove, _playerXMove);
+        Shader.SetGlobalFloat(PlayerXPos, _playerXPos);
+        Shader.SetGlobalFloat(CameraShake, _baseCameraShake * _distanceToNextBeat * cameraShakeIntensity);
         
         var elapsed = Time.time - _start;
         if (elapsed > _duration) return;
@@ -72,7 +80,7 @@ public class TunnelController : MonoBehaviour
         var normalisedElapsed = elapsed / _duration;
 
         var shake = Mathf.Max(_anim.Evaluate(normalisedElapsed), _baseCameraShake) * _intensity;
-        Shader.SetGlobalFloat("_CameraShake", shake);
+        Shader.SetGlobalFloat(CameraShake, shake);
     }
 
     public void LoseLifeShake()

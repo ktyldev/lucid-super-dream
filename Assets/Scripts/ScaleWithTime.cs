@@ -17,7 +17,7 @@ public class ScaleWithTime : MonoBehaviour
 
     private void Awake()
     {
-        _text = GetComponent<TextMeshProUGUI>();
+        _text = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     // Update is called once per frame

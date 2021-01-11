@@ -26,6 +26,6 @@ public class AddScoreOnDie : MonoBehaviour
 
     private void Die()
     {
-        Score.Value += value + (ulong)Random.Range(-5, 5);
+        Score.Add(value + (ulong)Random.Range(-5, 5));
     }
 }
