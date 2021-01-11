@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8399031f014bee928b07d26fe8ee4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onBarBeats: 000000000100000002000000
+  onBarBeats: 0000000002000000
   beatWait: 4
   xMin: -10
   xMax: 10
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f8399031f014bee928b07d26fe8ee4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onBarBeats: 03000000
+  onBarBeats: 0100000003000000
   beatWait: 4
   xMin: -10
   xMax: 10
