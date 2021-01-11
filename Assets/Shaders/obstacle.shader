@@ -267,7 +267,7 @@ Shader "custom/obstacle"
                 float noise = SAMPLE_TEXTURE2D(_NoiseMap, sampler_NoiseMap, IN.wpos.yz);
                 // c *= noise;
                 
-                c = lerp(c, _FarColor, _DistanceToNextBeat + noise);
+                c = lerp(c, _FarColor, (_DistanceToNextBeat*_Intensity + noise));
                 c.a = 0.0;
                 
                 return c;

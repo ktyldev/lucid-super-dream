@@ -183,7 +183,7 @@ Shader "custom/enemy"
                 float4 c = _Color1;
                 c = lerp(_Color1, _Color2, length(p));
                 
-                c = lerp(c, _FarColor, normalised);
+                c = lerp(c, _FarColor, normalised * _Intensity);
 
                 // float distanceAhead = IN.wpos.z - 6;
                 // float ca = clamp(distanceAhead * 0.1,0,1);

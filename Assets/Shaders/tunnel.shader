@@ -40,6 +40,8 @@ Shader "custom/tunnel"
         _OuterCircleThickness("Outer Circle Thickness", Range(0,1.0)) = 0.1
         _Intensity("Intensity", Range(0,1.0)) = 1.0
         
+        _AudioSample1("Audio Sample 1", Float) = 0.0
+        
         _NebulaMap("Nebula Map", 2D) = "black"
         _StarMap("Star Map", 2D) = "black"
         _FractalMap("Fractal Map", 2D) = "black"
@@ -120,6 +122,8 @@ Shader "custom/tunnel"
             float _PlayerXPos;
             float _PlayerXMove;
             float _TrackWidth = 20;
+
+            float _AudioSample1;
             
             TEXTURE2D(_NebulaMap);
             SAMPLER(sampler_NebulaMap);
@@ -337,9 +341,9 @@ Shader "custom/tunnel"
                 
                 // sky
                 float4 sky = _BackgroundColor;
-                sky += f * _FractalColor;            // fractal
-                sky += s * _StarsColor;            // stars
-                float4 clouds = n * _CloudColor;
+                sky += f * _FractalColor * _Intensity * (_DistanceSinceLastBeat*_DistanceToNextBeat);            // fractal
+                sky += s * _StarsColor * _Intensity;            // stars
+                float4 clouds = n * _CloudColor * _DistanceToNextBeat * _Intensity;
                 clouds *= (1.0-g);    // mask out ground
                 sky += clouds;
                 sky *= (1.0-g);  // mask out ground
@@ -359,6 +363,7 @@ Shader "custom/tunnel"
                 // ground_color = lerp(ground_color, ground_fast, ground_fast);
                 ground_color+= ground_fast;
                 ground_color *= _GroundColor;
+                ground_color *= 1.0+_DistanceToNextBeat * _Intensity * (1.0+_AudioSample1);
                 color = max(color, ground_color);
 
                 // bars

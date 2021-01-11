@@ -28,7 +28,7 @@ MonoBehaviour:
     multiplier: -500
     channel: 1
     sample: 525
-  - name: _SkyWeight
+  - name: _AudioSample1
     multiplier: -500
     channel: 1
     sample: 400
