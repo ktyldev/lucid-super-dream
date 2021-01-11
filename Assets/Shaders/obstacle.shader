@@ -83,6 +83,7 @@ Shader "custom/obstacle"
             float _VerticalScale;
 
             float _BaseTubeRadius;
+            float _Intensity;
             
             // float _VertexScale;
             // float _FadeStrength;
@@ -222,8 +223,11 @@ Shader "custom/obstacle"
 
                 wpos += float3(vpos.xy,0);
                 wpos.y += radius;
-                wpos.z *= (_SpeedMultiplier+5*(_DistanceToNextBeat*_DistanceSinceLastBeat));
-                // wpos.z *= max(1, (wpos.z-6)* _SpeedMultiplier);
+
+                float boundsStrength = 5.0*_Intensity;
+                float bounce = (_SpeedMultiplier+boundsStrength*(_DistanceToNextBeat*_DistanceSinceLastBeat));
+                wpos.z *= bounce;
+                
                 vpos = TransformWorldToObject(wpos);
 
                 // TransformWorldToObject()
